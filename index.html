@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ToDo">
+<head>
+    <meta charset="UTF-8">
+    <title>To Do List</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/angular.js"></script>
+    <script src="js/ui-bootstrap-custom-build/ui-bootstrap-custom-tpls-2.5.0.js"></script>
+</head>
+<body ng-controller="todoController" ng-click="clearActive()">
+
+
+<div class="to-do-wrap">
+    <form>
+        <div class="form-group form-flex">
+            <label for="toDoInput2" class="form-label">Что бы вы хотели сделать?</label>
+            <input id="toDoInput2" ng-model="toDoInput" class="form-control to-do-input">
+            <button ng-click="addToDo($event)" class="btn btn-primary add-button-flex">Add new goal</button>
+        </div>
+    </form>
+    <div class="sort-buttons-flex-wrap btn-group">
+        <button ng-click="sortFromAToZ()" class="btn btn-secondary btn-flex">Sort from a to z</button>
+        <button ng-click="sortFromZToA()" class="btn btn-secondary btn-flex">Sort from z to a</button>
+    </div>
+    <ul class="goals-ul-wrap list-group">
+        <li ng-repeat="todo in todos track by $index" class="each-goal-li-wrap list-group-item"
+            ng-class="{'li-like-div' : todo.active}" id="mainLi">
+            <div class="each-goal-main-div-wrap" id="mainDiv" ng-click="toggleActive($event, todo, $index)"
+                 ng-class="{'each-goal-main-div-wrap-active': todo.active}">
+                <div class="goal-flex">
+                        <textarea class="edit-input" ng-model="todo.title" ng-class="todo.edit ? 'not-hide' : 'hide'"
+                                  ng-click="stopProp($event)"></textarea>
+                    <div ng-class="!todo.edit ? 'not-hide' : 'hide'">- {{todo.title}}</div>
+                </div>
+                <div ng-click="deleteThisGoal($event, $index, todo)" class="control-element-del"
+                     ng-class="{'hide' : todo.active && todo.edit || !todo.active && !todo.edit,
+                         'not-hide' : todo.active && !todo.edit}"></div>
+                <div ng-click="editThisGoal($event, todo)" class="control-element-edit"
+                     ng-class="{'hide' : !todo.active && !todo.edit, 'move-and-change' : todo.active && todo.edit,
+                         'not-hide' : todo.active && todo.edit || todo.active && !todo.edit}"></div>
+                <div ng-click="doneThisGoal($index, todo, $event)" class="control-element-done"
+                     ng-class="{'hide' : todo.active && todo.edit || !todo.active && !todo.edit,
+                         'not-hide' : todo.active && !todo.edit}"></div>
+            </div>
+        </li>
+        <li ng-repeat="completetodo in completetodos track by $index"
+            class="each-completed-goal-li-wrap list-group-item">
+            <div class="each-completed-goal-wrap">
+                <div class="goal-flex completed" ng-model="completetodo.done">
+                    {{completetodo.title}}
+                </div>
+                <div ng-click="deleteComplGoal($event, $index, completetodo)" class="control-element-del del-if-done"
+                     ng-class="{'not-hide' : completetodo.done}"></div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+
+<script src="js/script.js"></script>
+
+</body>
+</html>

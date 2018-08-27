@@ -12,11 +12,15 @@
 
 
 <div class="to-do-wrap">
-    <form>
+    <form name="inputForm" novalidate>
         <div class="form-group form-flex">
-            <label for="toDoInput2" class="form-label">Что бы вы хотели сделать?</label>
-            <input id="toDoInput2" ng-model="toDoInput" class="form-control to-do-input">
-            <button ng-click="addToDo($event)" class="btn btn-primary add-button-flex">Add new goal</button>
+            <label for="toDoInput" class="form-label">Что бы вы хотели сделать?</label>
+            <input id="toDoInput" name="toDoInput" ng-model="toDoInput" class="form-control to-do-input" required="">
+            <div ng-show="inputForm.$submitted || inputForm.toDoInput.$touched">
+                <div ng-show="inputForm.toDoInput.$error.required" class="requiredError">You wrote nothing!!!</div>
+            </div>
+            <button type="button" class="btn btn-primary add-button-flex"
+                    ng-click="addToDo(inputForm)" >Add new goal</button>
         </div>
     </form>
     <div class="sort-buttons-flex-wrap btn-group">

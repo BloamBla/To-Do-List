@@ -184,3 +184,9 @@
     filter: alpha(opacity=50);
     opacity: .5;
 }
+
+.requiredError {
+    padding: 5px 0 0 5px;
+    color: red;
+    font-weight: bold;
+}

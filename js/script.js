@@ -1,17 +1,21 @@
 angular.module("ToDo", ["ui.bootstrap"])
-    .controller("todoController", ["$scope", "$uibModal",  function ($scope, $uibModal) {
+    .controller("todoController", ["$scope", "$uibModal", function ($scope, $uibModal) {
+
         $scope.toDoInput = "";
 
         $scope.todos = [];
 
         $scope.completetodos = [];
 
-        $scope.addToDo = function () {
-            if ($scope.toDoInput === "" || $scope.toDoInput === " ") {
-                return false;
+        $scope.addToDo = function (inputForm) {
+            inputForm.$setSubmitted();
+            if (!inputForm.$valid) {
+                return ;
             }
             $scope.todos.push({title: $scope.toDoInput, done: false, active: false, edit: false});
             $scope.toDoInput = "";
+            inputForm.$setPristine(true);
+            inputForm.$setUntouched();
         };
 
         $scope.clearCompleted = function () {
@@ -151,5 +155,5 @@ angular.module("ToDo", ["ui.bootstrap"])
                 $scope.todos[i].active = false;
                 $scope.todos[i].edit = false;
             }
-        }
+        };
     }]);

@@ -1,10 +1,10 @@
-angular.module("ToDo", ["ui.bootstrap"])
-    .controller("todoController", ["$scope", "$uibModal", function ($scope, $uibModal) {
+angular.module('ToDo', ['ui.bootstrap'])
+    .controller('todoController', ['$scope', '$uibModal', function ($scope, $uibModal) {
 
         $scope.sortAToZ = true;
         $scope.sortZToA = false;
 
-        $scope.toDoInput = "";
+        $scope.toDoInput = '';
 
         $scope.todos = [];
 
@@ -20,19 +20,19 @@ angular.module("ToDo", ["ui.bootstrap"])
                     states : {done: false, active: false, edit: false}});
             if ($scope.sortAToZ) {
                 $scope.sortFromAToZ();
-            } else if ($scope.sortZToA) {
+            } else {
                 $scope.sortFromZToA();
             }
             inputForm.$setPristine();
             inputForm.$setUntouched();
             inputForm.$valid = true;
-            $scope.toDoInput = "";
+            $scope.toDoInput = '';
         };
 
         $scope.sortFromAToZ = function () {
             $scope.sortZToA = false;
             $scope.sortAToZ = true;
-            let arr = $scope.todos;
+            const arr = $scope.todos;
             arr.sort(function (a, b) {
                 if (a.title > b.title) {
                     return 1;
@@ -47,7 +47,7 @@ angular.module("ToDo", ["ui.bootstrap"])
         $scope.sortFromZToA = function () {
             $scope.sortAToZ = false;
             $scope.sortZToA = true;
-            let arr = $scope.todos;
+            const arr = $scope.todos;
             arr.sort(function (a, b) {
                 if (a.title > b.title) {
                     return -1;
@@ -62,61 +62,59 @@ angular.module("ToDo", ["ui.bootstrap"])
         $scope.deleteGoal = function ($event, $index, todo) {
             $event.preventDefault();
             $event.stopPropagation();
-            let modalInstance = $uibModal.open({
-                templateUrl: "js/templates/confirm.html",
-                controller: function ($scope, $uibModalInstance, todo) {
-                    $scope.name = 'top';
-                    $scope.todo = todo;
+            const modalInstance = $uibModal.open({
+                templateUrl: 'js/templates/confirm.html',
+                controller (scope, $uibModalInstance) {
+                    scope.name = 'top';
+                    scope.todo = todo;
 
-                    $scope.ok = function () {
+                    scope.ok = function () {
                         $uibModalInstance.close();
                     };
 
-                    $scope.cancel = function () {
+                    scope.cancel = function () {
                         $uibModalInstance.dismiss();
                     };
                 },
                 resolve: {
-                    todo: function () {
+                    todo() {
                         return todo;
-                    }
-                }
+                    },
+                },
             });
 
             modalInstance.result.then(function () {
                 $scope.todos.splice($index, 1);
-            }, function () {
-            });
+            }, );
         };
 
         $scope.deleteComplGoal = function ($event, $index, completetodo) {
             $event.preventDefault();
             $event.stopPropagation();
-            let modalInstance = $uibModal.open({
+            const modalInstance = $uibModal.open({
                 templateUrl: 'js/templates/confirm.html',
-                controller: function ($scope, $uibModalInstance, completetodo) {
-                    $scope.name = 'top';
-                    $scope.completetodo = completetodo;
+                controller (scope, $uibModalInstance) {
+                    scope.name = 'top';
+                    scope.completetodo = completetodo;
 
-                    $scope.ok = function () {
+                    scope.ok = function () {
                         $uibModalInstance.close();
                     };
 
-                    $scope.cancel = function () {
+                    scope.cancel = function () {
                         $uibModalInstance.dismiss();
                     };
                 },
                 resolve: {
-                    completetodo: function () {
+                    completetodo () {
                         return completetodo;
-                    }
-                }
+                    },
+                },
             });
 
             modalInstance.result.then(function () {
                 $scope.completetodos.splice($index, 1);
-            }, function () {
-            });
+            }, );
         };
 
         $scope.doneGoal = function ($index, todo, $event) {
@@ -124,7 +122,7 @@ angular.module("ToDo", ["ui.bootstrap"])
             $event.stopPropagation();
             $scope.completetodos = $scope.completetodos.concat($scope.todos.slice($index, $index + 1));
             $scope.todos.splice($index, 1);
-            let arr = $scope.completetodos;
+            const arr = $scope.completetodos;
             arr.sort(function (a, b) {
                 if (a.title > b.title) {
                     return 1;
@@ -142,9 +140,6 @@ angular.module("ToDo", ["ui.bootstrap"])
             $event.preventDefault();
             $event.stopPropagation();
             for (let i = 0; i <= $scope.todos.length - 1; i++) {
-                if (i === $scope.todos.indexOf(todo)) {
-                    continue;
-                }
                 $scope.todos[i].states.edit = false;
             }
             todo.states.edit = !todo.states.edit;
@@ -156,7 +151,7 @@ angular.module("ToDo", ["ui.bootstrap"])
             $scope.todos = $scope.todos.concat($scope.completetodos.slice($index, $index + 1));
             $scope.completetodos.splice($index, 1);
             if ($scope.sortAToZ === true){
-                let arr = $scope.todos;
+                const arr = $scope.todos;
                 arr.sort(function (a, b) {
                     if (a.title > b.title) {
                         return 1;
@@ -167,13 +162,13 @@ angular.module("ToDo", ["ui.bootstrap"])
                     return 0;
                 });
             } else {
-                let arr = $scope.todos;
+                const arr = $scope.todos;
                 arr.sort(function (a, b) {
                     if (a.title > b.title) {
-                        return 1;
+                        return -1;
                     }
                     if (a.title < b.title) {
-                        return -1;
+                        return 1;
                     }
                     return 0;
                 });
@@ -186,7 +181,6 @@ angular.module("ToDo", ["ui.bootstrap"])
             for (let i = 0; i <= $scope.todos.length - 1; i++) {
                 if (i === $scope.todos.indexOf(todo)) {
                     $scope.todos[i].states.edit = false;
-                    continue;
                 }
                 $scope.todos[i].states.active = false;
                 $scope.todos[i].states.edit = false;

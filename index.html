@@ -37,7 +37,7 @@
                         <textarea class="edit-input" ng-model="todo.title"
                                   ng-class="todo.states.edit ? 'visible' : 'hide'"
                                   ng-click="stopProp($event)"></textarea>
-                    <div ng-class="!todo.states.edit ? 'visible' : 'hide'">- {{todo.title}}</div>
+                    <div ng-class="!todo.states.edit ? 'visible' : 'hide'">{{todo.title}}</div>
                 </div>
                 <div ng-click="deleteGoal($event, $index, todo)" class="control-element-del"
                      ng-class="{'hide' : todo.states.active && todo.states.edit || !todo.states.active && !todo.states.edit,

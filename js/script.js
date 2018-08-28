@@ -1,6 +1,9 @@
 angular.module("ToDo", ["ui.bootstrap"])
     .controller("todoController", ["$scope", "$uibModal", function ($scope, $uibModal) {
 
+        $scope.sortAToZ = true;
+        $scope.sortZToA = false;
+
         $scope.toDoInput = "";
 
         $scope.todos = [];
@@ -10,30 +13,25 @@ angular.module("ToDo", ["ui.bootstrap"])
         $scope.addToDo = function (inputForm) {
             inputForm.$setSubmitted();
             if (!inputForm.$valid) {
-                return ;
+                return;
             }
-            $scope.todos.push({title: $scope.toDoInput, done: false, active: false, edit: false});
-            $scope.toDoInput = "";
-            inputForm.$setPristine(true);
+            $scope.todos.push(
+                {title : $scope.toDoInput,
+                    states : {done: false, active: false, edit: false}});
+            if ($scope.sortAToZ) {
+                $scope.sortFromAToZ();
+            } else if ($scope.sortZToA) {
+                $scope.sortFromZToA();
+            }
+            inputForm.$setPristine();
             inputForm.$setUntouched();
-        };
-
-        $scope.clearCompleted = function () {
-            var todosArr = $scope.todos;
-            $scope.completetodos = $scope.completetodos.concat(todosArr.filter(todosArrItem => todosArrItem.done));
-            $scope.todos = todosArr.filter(todosArrPart => !todosArrPart.done);
-        };
-
-        $scope.doneThisGoal = function ($index, todo, $event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-            $scope.completetodos = $scope.completetodos.concat($scope.todos.slice($index, $index + 1));
-            $scope.todos.splice($index, 1);
-            todo.active = false;
-            todo.done = true;
+            inputForm.$valid = true;
+            $scope.toDoInput = "";
         };
 
         $scope.sortFromAToZ = function () {
+            $scope.sortZToA = false;
+            $scope.sortAToZ = true;
             let arr = $scope.todos;
             arr.sort(function (a, b) {
                 if (a.title > b.title) {
@@ -47,6 +45,8 @@ angular.module("ToDo", ["ui.bootstrap"])
         };
 
         $scope.sortFromZToA = function () {
+            $scope.sortAToZ = false;
+            $scope.sortZToA = true;
             let arr = $scope.todos;
             arr.sort(function (a, b) {
                 if (a.title > b.title) {
@@ -59,11 +59,11 @@ angular.module("ToDo", ["ui.bootstrap"])
             });
         };
 
-        $scope.deleteThisGoal = function ($event, $index, todo) {
+        $scope.deleteGoal = function ($event, $index, todo) {
             $event.preventDefault();
             $event.stopPropagation();
             let modalInstance = $uibModal.open({
-                templateUrl: 'js/confirm.html',
+                templateUrl: "js/templates/confirm.html",
                 controller: function ($scope, $uibModalInstance, todo) {
                     $scope.name = 'top';
                     $scope.todo = todo;
@@ -93,7 +93,7 @@ angular.module("ToDo", ["ui.bootstrap"])
             $event.preventDefault();
             $event.stopPropagation();
             let modalInstance = $uibModal.open({
-                templateUrl: 'js/confirm.html',
+                templateUrl: 'js/templates/confirm.html',
                 controller: function ($scope, $uibModalInstance, completetodo) {
                     $scope.name = 'top';
                     $scope.completetodo = completetodo;
@@ -119,16 +119,42 @@ angular.module("ToDo", ["ui.bootstrap"])
             });
         };
 
-        $scope.editThisGoal = function ($event, todo) {
+        $scope.doneGoal = function ($index, todo, $event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.completetodos = $scope.completetodos.concat($scope.todos.slice($index, $index + 1));
+            $scope.todos.splice($index, 1);
+            let arr = $scope.completetodos;
+            arr.sort(function (a, b) {
+                if (a.title > b.title) {
+                    return 1;
+                }
+                if (a.title < b.title) {
+                    return -1;
+                }
+                return 0;
+            });
+            todo.states.active = false;
+            todo.states.done = true;
+        };
+
+        $scope.editGoal = function ($event, todo) {
             $event.preventDefault();
             $event.stopPropagation();
             for (let i = 0; i <= $scope.todos.length - 1; i++) {
                 if (i === $scope.todos.indexOf(todo)) {
                     continue;
                 }
-                $scope.todos[i].edit = false;
+                $scope.todos[i].states.edit = false;
             }
-            todo.edit = !todo.edit;
+            todo.states.edit = !todo.states.edit;
+        };
+
+        $scope.returnGoal = function ($event, $index) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.todos = $scope.todos.concat($scope.completetodos.slice($index, $index + 1));
+            $scope.completetodos.splice($index, 1);
         };
 
         $scope.toggleActive = ($event, todo) => {
@@ -136,13 +162,13 @@ angular.module("ToDo", ["ui.bootstrap"])
             $event.stopPropagation();
             for (let i = 0; i <= $scope.todos.length - 1; i++) {
                 if (i === $scope.todos.indexOf(todo)) {
-                    $scope.todos[i].edit = false;
+                    $scope.todos[i].states.edit = false;
                     continue;
                 }
-                $scope.todos[i].active = false;
-                $scope.todos[i].edit = false;
+                $scope.todos[i].states.active = false;
+                $scope.todos[i].states.edit = false;
             }
-            todo.active = !todo.active;
+            todo.states.active = !todo.states.active;
         };
 
         $scope.stopProp = function ($event) {
@@ -152,8 +178,8 @@ angular.module("ToDo", ["ui.bootstrap"])
 
         $scope.clearActive = function () {
             for (let i = 0; i <= $scope.todos.length - 1; i++) {
-                $scope.todos[i].active = false;
-                $scope.todos[i].edit = false;
+                $scope.todos[i].states.active = false;
+                $scope.todos[i].states.edit = false;
             }
         };
     }]);

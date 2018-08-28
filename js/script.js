@@ -155,6 +155,29 @@ angular.module("ToDo", ["ui.bootstrap"])
             $event.stopPropagation();
             $scope.todos = $scope.todos.concat($scope.completetodos.slice($index, $index + 1));
             $scope.completetodos.splice($index, 1);
+            if ($scope.sortAToZ === true){
+                let arr = $scope.todos;
+                arr.sort(function (a, b) {
+                    if (a.title > b.title) {
+                        return 1;
+                    }
+                    if (a.title < b.title) {
+                        return -1;
+                    }
+                    return 0;
+                });
+            } else {
+                let arr = $scope.todos;
+                arr.sort(function (a, b) {
+                    if (a.title > b.title) {
+                        return 1;
+                    }
+                    if (a.title < b.title) {
+                        return -1;
+                    }
+                    return 0;
+                });
+            }
         };
 
         $scope.toggleActive = ($event, todo) => {

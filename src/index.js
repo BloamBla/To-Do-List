@@ -3,8 +3,11 @@ import 'angular';
 import 'angular-ui-bootstrap';
 import 'angular-resource';
 import '../styles/main.scss';
+import './controllers/toDoModule.js';
+import './controllers/todoTemplateController.js';
+import './controllers/completetodoTemplateController.js';
 
-angular.module('ToDo', ['ui.bootstrap', 'ngResource']).controller('todoController',
+angular.module('ToDo').controller('todoController',
     ['$scope', '$uibModal', '$resource', function ($scope, $uibModal, $resource) {
 
         $scope.sortAToZ = true;
@@ -24,7 +27,7 @@ angular.module('ToDo', ['ui.bootstrap', 'ngResource']).controller('todoControlle
             $scope.todos.push(
                 {
                     title: $scope.toDoInput,
-                    states: {done: false, active: false, edit: false}
+                    states: {done: false, active: false, edit: false},
                 });
             if ($scope.sortAToZ) {
                 $scope.sortFromAToZ();
@@ -72,18 +75,7 @@ angular.module('ToDo', ['ui.bootstrap', 'ngResource']).controller('todoControlle
             $event.stopPropagation();
             const modalInstance = $uibModal.open({
                 templateUrl: './js/templates/confirm.html',
-                controller($scope, $uibModalInstance) {
-                    $scope.name = 'top';
-                    $scope.todo = todo;
-
-                    $scope.ok = function () {
-                        $uibModalInstance.close();
-                    };
-
-                    $scope.cancel = function () {
-                        $uibModalInstance.dismiss();
-                    };
-                },
+                controller: 'todoTemplateController',
                 resolve: {
                     todo() {
                         return todo;
@@ -101,18 +93,7 @@ angular.module('ToDo', ['ui.bootstrap', 'ngResource']).controller('todoControlle
             $event.stopPropagation();
             const modalInstance = $uibModal.open({
                 templateUrl: './js/templates/confirm.html',
-                controller($scope, $uibModalInstance) {
-                    $scope.name = 'top';
-                    $scope.completetodo = completetodo;
-
-                    $scope.ok = function () {
-                        $uibModalInstance.close();
-                    };
-
-                    $scope.cancel = function () {
-                        $uibModalInstance.dismiss();
-                    };
-                },
+                controller: 'completeToDoTemplateController',
                 resolve: {
                     completetodo() {
                         return completetodo;
@@ -148,10 +129,9 @@ angular.module('ToDo', ['ui.bootstrap', 'ngResource']).controller('todoControlle
             $event.preventDefault();
             $event.stopPropagation();
             for (let i = 0; i <= $scope.todos.length - 1; i++) {
-                if (i === $scope.todos.indexOf(todo)) {
-                    continue;
+                if (i !== $scope.todos.indexOf(todo)) {
+                    $scope.todos[i].states.edit = false;
                 }
-                $scope.todos[i].states.edit = false;
             }
             todo.states.edit = !todo.states.edit;
             const arr = $scope.todos;
@@ -200,11 +180,10 @@ angular.module('ToDo', ['ui.bootstrap', 'ngResource']).controller('todoControlle
             $event.preventDefault();
             $event.stopPropagation();
             for (let i = 0; i <= $scope.todos.length - 1; i++) {
-                if (i === $scope.todos.indexOf(todo)) {
+                if (i !== $scope.todos.indexOf(todo)) {
+                    $scope.todos[i].states.active = false;
                     $scope.todos[i].states.edit = false;
-                    continue;
                 }
-                $scope.todos[i].states.active = false;
                 $scope.todos[i].states.edit = false;
             }
             todo.states.active = !todo.states.active;

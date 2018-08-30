@@ -2,4 +2,5 @@
 Used:
 - Bootstrap;
 - AngularJS;
-- UI Bootstrap Modal.
+- UI Bootstrap Modal;
+- Webpack 4.

@@ -1,0 +1,190 @@
+.to-do-wrap {
+    width: 60%;
+    margin: 10px auto;
+}
+
+.form-flex {
+    display: flex;
+    width: 100%;
+}
+
+.form-label {
+    margin: 0 10px;
+    padding-top: 5px;
+    flex:0 0 200px;
+}
+
+.to-do-input {
+    display: inline;
+    padding-top: 1px;
+    flex: 5 0 100px;
+}
+
+.add-button-flex {
+    flex: 0 0 150px;
+    margin-left: 15px;
+}
+
+.sort-buttons-flex-wrap {
+    display: flex;
+}
+
+.btn-group .btn-flex {
+    flex: 1 1 100px;
+}
+
+.goals-ul-wrap {
+    margin: 0;
+    padding: 10px 0;
+    width: 100%;
+}
+
+.each-goal-li-wrap, .each-completed-goal-li-wrap {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    min-height: 44px;
+}
+
+.each-completed-goal-li-wrap {
+    background: #b0ffff;
+    text-decoration: line-through;
+}
+
+.edit-input {
+    padding: 0 10px;
+    width: 100%;
+}
+
+.each-goal-main-div-wrap {
+    display: flex;
+    flex-grow: 1;
+    min-width: 100%;
+    min-height: 42px;
+}
+
+.each-goal-main-div-wrap-active {
+    background: inherit;
+    position: absolute;
+    box-shadow: 0 0 25px 10px #9a9a9a;
+    width: 110%;
+    left: -5%;
+    border-radius: 5px;
+    z-index: 100;
+    margin-bottom: 25px;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.each-goal-li-wrap:nth-of-type(odd){
+    background: #e0e0e0;
+}
+
+.each-goal-li-wrap:nth-of-type(even){
+    background: lightgrey;
+}
+
+.goal-flex {
+    flex: 1 1 auto;
+    padding: 8px 30px 8px 20px;
+    display: inherit;
+    cursor: pointer;
+}
+
+.completed, .completed:hover {
+    text-decoration: line-through;
+}
+
+.control-element-del {
+    position: absolute;
+    right: -90px;
+    top: 12px;
+    background: url(../img/delete.png);
+    -webkit-background-size: contain;
+    background-size: contain;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.control-element-edit {
+    position: absolute;
+    top: 12px;
+    right: -60px;
+    background: url(../img/edit.png);
+    -webkit-background-size: contain;
+    background-size: contain;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.move-and-change {
+    background: url(../img/done.png);
+    -webkit-background-size: contain;
+    background-size: contain;
+}
+
+.control-element-done {
+    position: absolute;
+    right: -35px;
+    top: 12px;
+    background: url(../img/done.png);
+    -webkit-background-size: contain;
+    background-size: contain;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.control-element-return {
+    position: absolute;
+    right: 30px;
+    top: 12px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    background: url(../img/return.png);
+    -webkit-background-size: contain;
+    background-size: contain;
+}
+
+.del-if-done {
+    right: 6px;
+}
+
+.visible {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+.fade.in {
+    opacity: 1;
+}
+
+.modal.in .modal-dialog {
+    -webkit-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+
+.modal-backdrop.in {
+    filter: alpha(opacity=50);
+    opacity: .5;
+}
+
+.requiredError {
+    padding: 5px 0 0 5px;
+    color: red;
+    font-weight: bold;
+}
+
+.sort-button-active {
+    background: #00bb00;
+}
+
+.sort-button-active:hover {
+    background: #00b400;
+}

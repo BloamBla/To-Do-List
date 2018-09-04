@@ -41,6 +41,10 @@ const conf = {
         new CopyWebpackPlugin([
             { from: 'index.html',
                 to: 'index.html'},
+            { from: './src/localStore.html',
+                to: './webs/localStore.html'},
+            { from: './src/main.html',
+                to: './webs/main.html'},
         ]),
     ],
 };

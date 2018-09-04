@@ -29,6 +29,11 @@
 
 .sort-buttons-flex-wrap {
     display: flex;
+    margin-top: 10px;
+}
+
+.load-btn {
+    width: 100%;
 }
 
 .btn-group .btn-flex {
@@ -195,6 +200,45 @@ div.to-do-wrap > div.btn-group > .sort-button-active:active {
     background: $click;
 }
 
+.language-select-loc {
+    text-align: right;
+    padding: 20px 0 10px 10px;
+    margin: 10px;
+}
+
 .language-select {
     text-align: right;
+    margin: 10px 0;
 }
+
+.route-bar-wrap {
+    display: flex;
+    margin: 10px 0 10px 10px;
+    padding-top: 10px;
+    flex: 1;
+}
+
+.route-bar-wrap-loc > .btn {
+    margin: 0 5px;
+}
+
+.route-bar-link {
+    flex: 1;
+    margin-top: 10px;
+}
+
+.page-wrap {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+}
+
+.clear-link, .clear-link:hover {
+    color: black;
+    text-decoration: none;
+}
+
+.clear-link > .btn {
+    margin-left: 5px;
+}
+

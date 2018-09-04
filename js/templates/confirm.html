@@ -1,10 +1,10 @@
 <div class="modal-header">
-    <div><h5 class="modal-title" id="modal-title">Вы пытаетесь удалить задачу:</h5>{{todo.title}}{{completetodo.title}}</div>
+    <div><h5 class="modal-title" id="modal-title">{{translation.GOAL_DELETE}}</h5>{{todo.title}}{{completetodo.title}}</div>
 </div>
 <div class="modal-body" id="modal-body">
-    <div>Вы уверены, что хотите сделать это?</div>
+    <div>{{translation.SURE}}</div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="ok()">Да</button>
-    <button class="btn btn-warning" type="button" ng-click="cancel()">Отмена</button>
+    <button class="btn btn-primary" type="button" ng-click="ok()">{{translation.YES}}</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">{{translation.NO}}</button>
 </div>

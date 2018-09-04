@@ -1,4 +1,5 @@
-angular.module('ToDo').controller('completeToDoTemplateController', function ($scope, $uibModalInstance, completetodo) {
+angular.module('ToDo').controller('completeToDoTemplateController',
+    function ($scope, $uibModalInstance, completetodo, translationService, myTranslate) {
     $scope.name = 'top';
     $scope.completetodo = completetodo;
 
@@ -9,4 +10,9 @@ angular.module('ToDo').controller('completeToDoTemplateController', function ($s
     $scope.cancel = function () {
         $uibModalInstance.dismiss();
     };
+
+    $scope.translate = function () {
+        translationService.getTranslation($scope, myTranslate);
+    };
+    $scope.translate();
 });

@@ -4,5 +4,19 @@
   "ADD" : "Add",
   "SORT_A_TO_Z" : "Sort from A to Z",
   "SORT_Z_TO_A" : "Sort from Z to A",
-  "LANGUAGE" : "Page language:"
+  "LANGUAGE" : "Page language:",
+  "SAVE_STOR" : "Save to...",
+  "LOAD_STOR" : "Load from...",
+  "RETURN_TO" : "Return",
+  "LOAD_FROM" : "Load from local storage",
+  "YES" : "Yes",
+  "NO" : "No",
+  "SURE" : "Are you sure to do that?",
+  "GOAL_DELETE" : "You try to delete this goal:",
+  "REPLACE_IT" : "Yes, replace",
+  "MERGE_IT" : "Merge",
+  "CLOSE_IT" : "Close",
+  "SAVE_TO_LOCAL" : "You try to rewrite local storage.",
+  "SAVE_SURE" : "Are you sure that you want rewrite goals?",
+  "FILES_ARE" : "Goals for rewrite:"
 }

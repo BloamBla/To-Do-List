@@ -2,12 +2,22 @@
 <html lang="en" ng-app="ToDo">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>To Do List</title>
     <script src="main.js"></script>
 </head>
 <body ng-controller="todoController" ng-click="clearActive()">
     <div class="to-do-wrap">
-        <form name="inputForm" novalidate>
+        <div class="route-bar-wrap">
+            <div class="language-select">
+                <label>{{translation.LANGUAGE}}
+                    <select ng-change="translate()" ng-model="selectedLanguage">
+                        <option value="en">English</option>
+                        <option value="ru">Русский</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+        <!--<form name="inputForm" novalidate>
             <div class="form-group form-flex">
                 <label for="toDoInput" class="form-label">{{translation.WHAT_WANT_YOU_DO}}</label>
                 <input id="toDoInput" name="toDoInput" ng-model="toDoInput" class="form-control to-do-input" required="">
@@ -59,15 +69,8 @@
                          ng-class="{'visible' : completetodo.done}"></div>
                 </div>
             </li>
-        </ul>
-        <div class="language-select">
-            <label>{{translation.LANGUAGE}}
-                <select ng-change="translate()" ng-model="selectedLanguage">
-                    <option value="en">English</option>
-                    <option value="ru">Русский</option>
-                </select>
-            </label>
-        </div>
+        </ul>-->
     </div>
+    <ng-view></ng-view>
 </body>
 </html>

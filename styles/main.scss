@@ -242,3 +242,27 @@ div.to-do-wrap > div.btn-group > .sort-button-active:active {
     margin-left: 5px;
 }
 
+.goals-div {
+    margin-top: 10px;
+    max-height: 250px;
+    overflow: auto;
+}
+
+.no-list {
+    list-style: none;
+}
+
+.alert-box-wrap {
+    margin: 0 auto;
+    position: absolute;
+    right: 0;
+}
+
+.alert-box {
+    right: 0;
+}
+
+.alert-wrap {
+    width: 80%;
+    position: relative;
+}

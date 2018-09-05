@@ -1,0 +1,19 @@
+<div class="modal-header">
+    <div>
+        <h5 class="modal-title" id="modal-title">{{translation.SAVE_TO_LOCAL}}</h5>
+    </div>
+</div>
+<div class="modal-body" id="modal-body">
+    <div>{{translation.SAVE_SURE}}</div>
+    <div>{{translation.FILES_ARE}}</div>
+    <div class="goals-div">
+        <ul>
+            <li ng-repeat="me in mes track by $index">{{me.title}}</li>
+        </ul>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="save()">{{translation.REPLACE_IT}}</button>
+    <button class="btn btn-primary" type="button" ng-click="merge()">{{translation.MERGE_IT}}</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">{{translation.CLOSE_IT}}</button>
+</div>

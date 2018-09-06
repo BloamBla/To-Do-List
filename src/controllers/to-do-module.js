@@ -48,7 +48,7 @@ angular.module('ToDo', ['ui.bootstrap', 'ngResource', 'ngRoute', 'LocalStorageMo
         return {
             addAlert(msg) {
                 const dateNow = Date.now();
-                _alert.push({title : msg, id : dateNow});
+                _alert.unshift({title : msg, id : dateNow});
                 setTimeout(function () {
                     _alert.splice(_alert.indexOf({id : dateNow}), 1);
                     $rootScope.$apply();

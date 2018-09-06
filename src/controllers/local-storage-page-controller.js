@@ -31,7 +31,10 @@ angular.module('ToDo').controller('localStoragePageController',
                         default:
                     }
                 },);
-            } else {localStorage.setItem('todos', JSON.stringify(ctrlConnect.getTodos()));}
+            } else {
+                localStorage.setItem('todos', JSON.stringify(ctrlConnect.getTodos()));
+                alertBox.addAlert($scope.translation.LOAD_IN_STOR);
+            }
         };
 
         $scope.loadFromLocalStor = function () {

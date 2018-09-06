@@ -276,15 +276,14 @@ div.to-do-wrap > div.btn-group > .sort-button-active:active {
 }
 
 .alert-box-wrap {
-    text-align: right;
-    margin: 0 auto;
+    width: 550px;
     position: absolute;
-    right: 0;
     z-index: 101;
+    left: 70%;
 }
 
 .alert-box {
-    left: 70%;
+    width: max-content;
 }
 
 .alert-wrap {

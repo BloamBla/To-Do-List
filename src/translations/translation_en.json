@@ -19,8 +19,8 @@
   "SAVE_TO_LOCAL" : "You try to rewrite local storage.",
   "SAVE_SURE" : "Are you sure that you want rewrite goals?",
   "FILES_ARE" : "Goals for rewrite:",
-  "LOAD_IN_STOR" : "Goals successfully added in local storage.",
-  "MERGE_IN_STOR" : "Your goals was successfully merged with in local storage.",
-  "LOAD_FROM_STOR" : "Goals successfully loaded from local storage.",
-  "MERGE_FROM_STOR" : "Your goals was successfully merged with goals from local storage."
+  "LOAD_IN_STOR" : "Goals successfully added in local storage",
+  "MERGE_IN_STOR" : "Your goals was successfully merged with in local storage",
+  "LOAD_FROM_STOR" : "Goals successfully loaded from local storage",
+  "MERGE_FROM_STOR" : "Your goals was successfully merged with goals from local storage"
 }

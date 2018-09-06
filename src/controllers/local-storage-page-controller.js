@@ -20,23 +20,13 @@ angular.module('ToDo').controller('localStoragePageController',
                     switch (answer) {
                         case MODAL_ANSWERS.SAVE:
                             localStorage.setItem('todos', JSON.stringify(ctrlConnect.getTodos()));
-                            if ($scope.selectedLanguage === 'ru') {
-                                alertBox.addAlert('Задачи успешно добавлены в локальное хранилище.');
-                                console.log(alertBox.getAlert());
-                            } else {
-                                alertBox.addAlert('Goals successfully added in local storage.');
-                                console.log(alertBox.getAlert());
-                            }
-                            ctrlConnect.setTodos([]);
+                            alertBox.addAlert($scope.translation.LOAD_IN_STOR);
                             break;
                         case MODAL_ANSWERS.MERGE:
                             let arr = ctrlConnect.getTodos();
                             arr = arr.concat(JSON.parse(localStorage.getItem('todos')));
                             localStorage.setItem('todos', JSON.stringify(arr));
-                            if ($scope.selectedLanguage === 'ru') {
-                                alertBox.addAlert('Задачи успешно добавлены в локальное хранилище.');
-                            } else {alertBox.addAlert('Goals successfully added in local storage.');}
-                            ctrlConnect.setTodos([]);
+                            alertBox.addAlert($scope.translation.MERGE_IN_STOR);
                             break;
                         default:
                     }
@@ -62,16 +52,12 @@ angular.module('ToDo').controller('localStoragePageController',
                     case MODAL_ANSWERS.SAVE:
                         res = JSON.parse(localStorage.getItem('todos'));
                         $scope.setInService(res);
-                        if ($scope.selectedLanguage === 'ru') {
-                            alertBox.addAlert('Задачи успешно добавлены в локальное хранилище.');
-                        } else {alertBox.addAlert('Goals successfully added in local storage.');}
+                        alertBox.addAlert($scope.translation.LOAD_FROM_STOR);
                         break;
                     case MODAL_ANSWERS.MERGE:
                         res = ctrlConnect.getTodos().concat(JSON.parse(localStorage.getItem('todos')));
                         $scope.setInService(res);
-                        if ($scope.selectedLanguage === 'ru') {
-                            alertBox.addAlert('Задачи успешно добавлены в локальное хранилище.');
-                        } else {alertBox.addAlert('Goals successfully added in local storage.');}
+                        alertBox.addAlert($scope.translation.MERGE_FROM_STOR);
                         break;
                     default:
                 }

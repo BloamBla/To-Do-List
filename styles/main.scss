@@ -1,7 +1,24 @@
 @import "variablse";
 
-.to-do-wrap {
+.main-bar-wrap {
     width: 60%;
+    margin: 0 auto;
+}
+
+.width-and-margin {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.todos-wrap {
+    margin: 0 auto;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.todos-wrap::-webkit-scrollbar {width:0;}
+
+.to-do-wrap {
     margin: 10px auto;
 }
 
@@ -41,10 +58,16 @@
 }
 
 .goals-ul-wrap {
-    margin: 0;
-    padding: 10px 0;
+    padding: 27px 20%;
     width: 100%;
+    max-height: 300px;
+    margin: 0 0;
 }
+
+.goals-ul-wrap:last-child {
+    padding-top: 0;
+    margin-top: 25px;
+};
 
 .each-goal-li-wrap, .each-completed-goal-li-wrap {
     margin: 0;
@@ -253,13 +276,15 @@ div.to-do-wrap > div.btn-group > .sort-button-active:active {
 }
 
 .alert-box-wrap {
+    text-align: right;
     margin: 0 auto;
     position: absolute;
     right: 0;
+    z-index: 101;
 }
 
 .alert-box {
-    right: 0;
+    left: 70%;
 }
 
 .alert-wrap {

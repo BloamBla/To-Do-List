@@ -6,10 +6,11 @@
     <script src="main.js"></script>
 </head>
 <body ng-controller="todoController" ng-click="clearActive()">
+<div class="main-bar-wrap">
     <div class="alert-wrap">
         <div ng-controller="noticeCrtl" class="alert-box-wrap">
             <ul>
-                <li ng-repeat="alert in alerts" class="alert alert-success no-list alert-box" ng-model="alerts">
+                <li ng-repeat="alert in getAlerts()" class="alert alert-success no-list alert-box" ng-model="alerts">
                     {{alert.title}}
                 </li>
             </ul>
@@ -27,6 +28,7 @@
             </div>
         </div>
     </div>
+</div>
     <ng-view></ng-view>
 </body>
 </html>

@@ -43,16 +43,15 @@ angular.module('ToDo', ['ui.bootstrap', 'ngResource', 'ngRoute', 'LocalStorageMo
         SAVE: 0,
         MERGE: 1,
     })
-    .service('alertBox', function () {
+    .service('alertBox', function ($rootScope) {
         const _alert = [];
         return {
             addAlert(msg) {
                 const dateNow = Date.now();
                 _alert.push({title : msg, id : dateNow});
-                console.log(_alert.indexOf({id : Date.now()}));
                 setTimeout(function () {
                     _alert.splice(_alert.indexOf({id : dateNow}), 1);
-                    console.log(_alert);
+                    $rootScope.$apply();
                 }, 5000);
             },
             getAlert() {

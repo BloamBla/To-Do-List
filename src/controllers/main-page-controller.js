@@ -1,6 +1,30 @@
 angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 'ctrlConnect',
     function ($scope, $uibModal, ctrlConnect){
 
+        let sortFromAToZ = function(arrrr){
+            arrrr.sort(function (a, b) {
+                if (a.title > b.title) {
+                    return 1;
+                }
+                if (a.title < b.title) {
+                    return -1;
+                }
+                return 0;
+            });
+        };
+
+        let sortFromZToA = function(arrrr){
+            arrrr.sort(function (a, b) {
+                if (a.title > b.title) {
+                    return -1;
+                }
+                if (a.title < b.title) {
+                    return 1;
+                }
+                return 0;
+            });
+        };
+
         $scope.sortAToZ = true;
         $scope.sortZToA = false;
 
@@ -13,6 +37,8 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
         $scope.onLoad = function () {
             $scope.todos = ctrlConnect.getTodos();
             $scope.completetodos = ctrlConnect.getComplTodos();
+            let arr = $scope.todos;
+            sortFromAToZ(arr);
         };
 
         $scope.onLoad();
@@ -49,30 +75,14 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
             $scope.sortZToA = false;
             $scope.sortAToZ = true;
             const arr = $scope.todos;
-            arr.sort(function (a, b) {
-                if (a.title > b.title) {
-                    return 1;
-                }
-                if (a.title < b.title) {
-                    return -1;
-                }
-                return 0;
-            });
+            sortFromAToZ(arr);
         };
 
         $scope.sortFromZToA = function () {
             $scope.sortAToZ = false;
             $scope.sortZToA = true;
             const arr = $scope.todos;
-            arr.sort(function (a, b) {
-                if (a.title > b.title) {
-                    return -1;
-                }
-                if (a.title < b.title) {
-                    return 1;
-                }
-                return 0;
-            });
+            sortFromZToA(arr);
         };
 
         $scope.deleteGoal = function ($event, $index, todo) {
@@ -146,15 +156,7 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
             }
             todo.states.edit = !todo.states.edit;
             const arr = $scope.todos;
-            arr.sort(function (a, b) {
-                if (a.title > b.title) {
-                    return 1;
-                }
-                if (a.title < b.title) {
-                    return -1;
-                }
-                return 0;
-            });
+            sortFromAToZ(arr);
         };
 
         $scope.returnGoal = function ($event, $index) {
@@ -164,26 +166,10 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
             $scope.completetodos.splice($index, 1);
             if ($scope.sortAToZ === true) {
                 const arr = $scope.todos;
-                arr.sort(function (a, b) {
-                    if (a.title > b.title) {
-                        return 1;
-                    }
-                    if (a.title < b.title) {
-                        return -1;
-                    }
-                    return 0;
-                });
+                sortFromAToZ(arr);
             } else {
                 const arr = $scope.todos;
-                arr.sort(function (a, b) {
-                    if (a.title > b.title) {
-                        return -1;
-                    }
-                    if (a.title < b.title) {
-                        return 1;
-                    }
-                    return 0;
-                });
+                sortFromZToA(arr);
             }
         };
 

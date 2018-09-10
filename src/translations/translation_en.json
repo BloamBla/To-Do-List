@@ -22,5 +22,9 @@
   "LOAD_IN_STOR" : "Goals successfully added in local storage",
   "MERGE_IN_STOR" : "Your goals was successfully merged with in local storage",
   "LOAD_FROM_STOR" : "Goals successfully loaded from local storage",
-  "MERGE_FROM_STOR" : "Your goals was successfully merged with goals from local storage"
+  "MERGE_FROM_STOR" : "Your goals was successfully merged with goals from local storage",
+  "DONE_IT" : "Done",
+  "SAVE_CHANGES" : "Save changes",
+  "DELETE_IT" : "Delete",
+  "WHAT_DO_WITH_GOAL" : "What you want to do with this goal?"
 }

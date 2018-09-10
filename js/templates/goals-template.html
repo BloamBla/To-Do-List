@@ -1,11 +1,11 @@
-<div class="modal-header"><h5>Что бы вы хотели сделать с этой задачей?</h5></div>
+<div class="modal-header"><h5>{{translation.WHAT_DO_WITH_GOAL}}</h5></div>
 <div class="modal-body">
     <textarea ng-model="todo.title" class="text-area-wrap">{{todo.title}}</textarea>
 </div>
 <div class="modal-footer">
     <div class="edit-buttons-wrap">
-        <button ng-click="save()" class="btn btn-primary edit-button">Сохранить изменения</button>
-        <button ng-click="success()" class="btn btn-success edit-button">Выполнить</button>
-        <button ng-click="delete()" class="btn btn-danger edit-button">Удалить</button>
+        <button ng-click="save()" class="btn btn-primary edit-button">{{translation.SAVE_CHANGES}}</button>
+        <button ng-click="success()" class="btn btn-success edit-button">{{translation.DONE_IT}}</button>
+        <button ng-click="delete()" class="btn btn-danger edit-button">{{translation.DELETE_IT}}</button>
     </div>
 </div>

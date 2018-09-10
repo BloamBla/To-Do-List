@@ -60,10 +60,12 @@ angular.module('ToDo').controller('localStoragePageController',
                         alertBox.addAlert($scope.translation.LOAD_FROM_STOR);
                         break;
                     case MODAL_ANSWERS.MERGE:
-                        res = ctrlConnect.getTodos().concat(JSON.parse(localStorage.getItem('todos')));
-                        $scope.setInService(res);
-                        alertBox.addAlert($scope.translation.MERGE_FROM_STOR);
-                        break;
+                        if (localStorage.getItem('todos') !== null) {
+                            res = ctrlConnect.getTodos().concat(JSON.parse(localStorage.getItem('todos')));
+                            $scope.setInService(res);
+                            alertBox.addAlert($scope.translation.MERGE_FROM_STOR);
+                            break;
+                        } break;
                     default:
                 }
             }, function () {

@@ -36,8 +36,13 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
 
         $scope.onLoad = function () {
             $scope.todos = ctrlConnect.getTodos();
-            $scope.completetodos = ctrlConnect.getComplTodos();
-            sortFromAToZ($scope.todos);
+            if ($scope.todos !== null && $scope.todos !== undefined) {
+                $scope.completetodos = ctrlConnect.getComplTodos();
+                sortFromAToZ($scope.todos);
+            } else {
+                $scope.todos = [];
+                $scope.completetodos = ctrlConnect.getComplTodos();
+            }
         };
 
         $scope.onLoad();

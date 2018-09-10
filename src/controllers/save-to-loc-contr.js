@@ -4,6 +4,9 @@ angular.module('ToDo').controller('saveToLocContr',
         $scope.mes = [];
         $scope.mes = $scope.mes.concat(todosMemoryValue);
 
+        $scope.pieces = [];
+        $scope.pieces = JSON.parse(localStorage.getItem('todos'));
+
         $scope.save = function () {
             $uibModalInstance.close(MODAL_ANSWERS.SAVE);
         };

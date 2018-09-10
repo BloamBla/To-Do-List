@@ -29,7 +29,9 @@ angular.module('ToDo').controller('localStoragePageController',
                             break;
                         default:
                     }
-                },);
+                }, function () {
+                    return false;
+                });
             } else {
                 localStorage.setItem('todos', JSON.stringify(ctrlConnect.getTodos()));
                 alertBox.addAlert($scope.translation.LOAD_IN_STOR);
@@ -64,6 +66,8 @@ angular.module('ToDo').controller('localStoragePageController',
                         break;
                     default:
                 }
+            }, function () {
+                return false;
             });
         };
 

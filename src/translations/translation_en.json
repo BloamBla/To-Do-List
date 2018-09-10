@@ -16,9 +16,9 @@
   "REPLACE_IT" : "Yes, replace",
   "MERGE_IT" : "Merge",
   "CLOSE_IT" : "Close",
-  "SAVE_TO_LOCAL" : "You try to rewrite local storage.",
+  "SAVE_TO_LOCAL" : "Local storage.",
   "SAVE_SURE" : "Are you sure that you want rewrite goals?",
-  "FILES_ARE" : "Goals for rewrite:",
+  "FILES_ARE" : "Goals in your to do list:",
   "LOAD_IN_STOR" : "Goals successfully added in local storage",
   "MERGE_IN_STOR" : "Your goals was successfully merged with in local storage",
   "LOAD_FROM_STOR" : "Goals successfully loaded from local storage",
@@ -28,5 +28,6 @@
   "DELETE_IT" : "Delete",
   "WHAT_DO_WITH_GOAL" : "What you want to do with this goal?",
   "EDIT_IT" : "Edit",
-  "CLOSE_IT_PLS" : "Close"
+  "CLOSE_IT_PLS" : "Close",
+  "FILES_IN_LOC" : "Goals in local storage is:"
 }

@@ -11,6 +11,12 @@
             <li ng-repeat="me in mes track by $index">{{me.title}}</li>
         </ul>
     </div>
+    <div>{{translation.FILES_IN_LOC}}</div>
+    <div class="goals-div">
+        <ul>
+            <li ng-repeat="piece in pieces track by $index">{{piece.title}}</li>
+        </ul>
+    </div>
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary" type="button" ng-click="save()">{{translation.REPLACE_IT}}</button>

@@ -26,5 +26,7 @@
   "DONE_IT" : "Done",
   "SAVE_CHANGES" : "Save changes",
   "DELETE_IT" : "Delete",
-  "WHAT_DO_WITH_GOAL" : "What you want to do with this goal?"
+  "WHAT_DO_WITH_GOAL" : "What you want to do with this goal?",
+  "EDIT_IT" : "Edit",
+  "CLOSE_IT_PLS" : "Close"
 }

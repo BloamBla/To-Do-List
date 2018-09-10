@@ -57,7 +57,7 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
             $scope.todos.push(
                 {
                     title: $scope.toDoInput,
-                    states: {done: false, active: false, edit: false},
+                    states: {done: false, active: false},
                 });
             if ($scope.sortAToZ) {
                 $scope.sortFromAToZ();
@@ -100,7 +100,9 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
 
             modalInstance.result.then(function () {
                 $scope.todos.splice($index, 1);
-            },);
+            }, function () {
+                return false;
+            });
         };
 
 
@@ -131,6 +133,8 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
                     default:
                 }
                 $scope.sortFromAToZ($scope.todos);
+            }, function () {
+                return false;
             });
         };
 
@@ -152,7 +156,9 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
 
             modalInstance.result.then(function () {
                 $scope.completetodos.splice($index, 1);
-            },);
+            }, function () {
+                return false;
+            });
         };
 
         $scope.doneGoal = function ($index) {

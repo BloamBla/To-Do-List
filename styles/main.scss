@@ -1,5 +1,9 @@
 @import "variablse";
 
+.inherit {
+    display: inherit;
+}
+
 .edit-buttons-wrap {
     width: 100%;
     display: flex;
@@ -309,4 +313,32 @@ div.to-do-wrap > div.btn-group > .sort-button-active:active {
 .alert-wrap {
     width: 80%;
     position: relative;
+}
+
+.modal-save {
+    background: url(../img/done.png);
+}
+
+.modal-edit {
+    background: url(../img/edit.png);
+}
+
+.modal-delete {
+    background: url(../img/delete.png);
+}
+
+.modal-success {
+    background: url(../img/success.png);
+}
+
+.modal-close {
+    background: url(../img/close.png);
+}
+
+.modal-icons {
+    -webkit-background-size: contain;
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
 }

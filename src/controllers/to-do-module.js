@@ -44,6 +44,7 @@ angular.module('ToDo', ['ui.bootstrap', 'ngResource', 'ngRoute', 'LocalStorageMo
         MERGE: 1,
         SUCCESS: 2,
         DELETE: 3,
+        EDIT: 4,
     })
     .service('alertBox', function ($rootScope) {
         const _alert = [];

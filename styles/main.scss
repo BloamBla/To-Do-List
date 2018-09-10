@@ -1,5 +1,16 @@
 @import "variablse";
 
+.edit-buttons-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.text-area-wrap {
+    width: 100%;
+    min-height: 150px;
+}
+
 .main-bar-wrap {
     width: 60%;
     margin: 0 auto;
@@ -12,13 +23,11 @@
 
 .todos-wrap {
     margin: 0 auto;
-    overflow-x: hidden;
-    overflow-y: scroll;
+    padding: 27px 20%;
 }
 
-.todos-wrap::-webkit-scrollbar {width:0;}
-
 .to-do-wrap {
+    position: relative;
     margin: 10px auto;
 }
 
@@ -58,21 +67,16 @@
 }
 
 .goals-ul-wrap {
-    padding: 27px 20%;
     width: 100%;
     max-height: 300px;
     margin: 0 0;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
-
-.goals-ul-wrap:last-child {
-    padding-top: 0;
-    margin-top: 25px;
-};
 
 .each-goal-li-wrap, .each-completed-goal-li-wrap {
     margin: 0;
     padding: 0;
-    position: relative;
     min-height: 44px;
 }
 
@@ -80,6 +84,17 @@
     background: #b0ffff;
     text-decoration: line-through;
 }
+
+.each-completed-goal-wrap {
+    position: relative;
+}
+
+@media (min-width: 576px) {
+    .modal-dialog {
+        margin-top: 15%;
+    }
+}
+
 
 .edit-input {
     padding: 0 10px;
@@ -89,16 +104,19 @@
 .each-goal-main-div-wrap {
     display: flex;
     flex-grow: 1;
-    min-width: 100%;
     min-height: 42px;
+}
+
+li.list-group-item {
+    position: inherit;
 }
 
 .each-goal-main-div-wrap-active {
     background: inherit;
     position: absolute;
     box-shadow: 0 0 25px 10px #9a9a9a;
-    width: 110%;
-    left: -5%;
+    width: 70%;
+    left: 15%;
     border-radius: 5px;
     z-index: 100;
     margin-bottom: 25px;
@@ -118,6 +136,7 @@
     padding: 8px 30px 8px 20px;
     display: inherit;
     cursor: pointer;
+
 }
 
 .completed, .completed:hover {

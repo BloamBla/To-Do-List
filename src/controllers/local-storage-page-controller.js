@@ -1,14 +1,13 @@
 angular.module('ToDo').controller('localStoragePageController',
     function ($scope, ctrlConnect, $uibModal, MODAL_ANSWERS, alertBox) {
-        let res = [];
 
         $scope.saveInLocStor = function () {
-            if (localStorage.getItem('todos') !== null) {
+            if (localStorage.getItem('todos') !== null && localStorage.getItem('todos') !== '[]') {
                 const modalInstance = $uibModal.open({
                     templateUrl: './js/templates/loc-stor-confirm.html',
                     controller: 'saveToLocContr',
                     resolve: {
-                        myTranslate() {
+                        selectLang() {
                             return $scope.selectedLanguage;
                         },
                         todosMemoryValue() {
@@ -42,7 +41,7 @@ angular.module('ToDo').controller('localStoragePageController',
                 templateUrl: './js/templates/loc-stor-confirm.html',
                 controller: 'saveToLocContr',
                 resolve: {
-                    myTranslate() {
+                    selectLang() {
                         return $scope.selectedLanguage;
                     },
                     todosMemoryValue() {
@@ -51,6 +50,7 @@ angular.module('ToDo').controller('localStoragePageController',
                 },
             });
             modalInstance.result.then(function (answer) {
+                let res = [];
                 switch (answer) {
                     case MODAL_ANSWERS.SAVE:
                         res = JSON.parse(localStorage.getItem('todos'));

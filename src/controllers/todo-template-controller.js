@@ -1,5 +1,5 @@
 angular.module('ToDo').controller('todoTemplateController',
-    function (todo, $scope, $uibModalInstance, translationService, myTranslate) {
+    function (todo, $scope, $uibModalInstance, translationService, selectLang) {
         $scope.name = 'top';
         $scope.todo = todo;
 
@@ -12,7 +12,7 @@ angular.module('ToDo').controller('todoTemplateController',
         };
 
         $scope.translate = function () {
-            translationService.getTranslation($scope, myTranslate);
+            translationService.getTranslation($scope, selectLang);
         };
         $scope.translate();
     });

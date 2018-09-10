@@ -11,11 +11,12 @@ import './controllers/complete-to-do-template-controller.js';
 import './controllers/local-storage-page-controller.js';
 import './controllers/main-page-controller.js';
 import './controllers/save-to-loc-contr.js';
-import './controllers/noticeCrtl.js';
+import './controllers/notice-crtl.js';
+import './controllers/edit-done-or-delete-goals-controller.js';
 
 angular.module('ToDo').controller('todoController',
-    ['$scope', 'translationService', 'ctrlConnect', '$route', '$routeParams', '$location',
-        function ($scope, translationService, ctrlConnect, $route, $routeParams, $location) {
+    ['$scope', 'translationService',
+        function ($scope, translationService) {
 
             $scope.translate = function(){
                 translationService.getTranslation($scope, $scope.selectedLanguage);
@@ -29,11 +30,4 @@ angular.module('ToDo').controller('todoController',
                 sessionStorage.setItem('currentLanguage', $scope.selectedLanguage);
                 $scope.translate();
             };
-
-            $scope.$route = $route;
-            $scope.$location = $location;
-            $scope.$routeParams = $routeParams;
-
-            $scope.name = 'pageController';
-            $scope.params = $routeParams;
         }]);

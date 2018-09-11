@@ -32,9 +32,13 @@ angular.module('ToDo').controller('todoController',
             };
 
             $scope.onLoad = function () {
-                const arr = JSON.parse(localStorage.getItem('todos'));
+                let arr = JSON.parse(localStorage.getItem('todos'));
                 if (arr !== null && arr !== undefined) {
                     ctrlConnect.setTodos(arr);
+                }
+                arr = JSON.parse(localStorage.getItem('completetodos'));
+                if (arr !== null && arr !== undefined) {
+                    ctrlConnect.setComplTodos(arr);
                 }
             };
 

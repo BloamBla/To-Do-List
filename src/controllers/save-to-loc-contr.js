@@ -1,5 +1,5 @@
 angular.module('ToDo').controller('saveToLocContr',
-    function ($scope, $uibModalInstance, translationService, selectLang, todosMemoryValue, MODAL_ANSWERS) {
+    function ($scope, $uibModalInstance, translationService, selectedLanguage, todosMemoryValue, MODAL_ANSWERS) {
 
         $scope.mes = [];
         $scope.mes = $scope.mes.concat(todosMemoryValue);
@@ -20,7 +20,7 @@ angular.module('ToDo').controller('saveToLocContr',
         };
 
         $scope.translate = function () {
-            translationService.getTranslation($scope, selectLang);
+            translationService.getTranslation($scope, selectedLanguage);
         };
         $scope.translate();
     });

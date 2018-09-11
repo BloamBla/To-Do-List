@@ -94,7 +94,7 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
                 templateUrl: './js/templates/confirm.html',
                 controller: 'todoTemplateController',
                 resolve: {
-                    selectLang() {
+                    selectedLanguage() {
                         return $scope.selectedLanguage;
                     },
                     todo() {
@@ -119,7 +119,7 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
                     todo() {
                         return todo;
                     },
-                    selectLang() {
+                    selectedLanguage() {
                         return $scope.selectedLanguage;
                     },
                 },
@@ -150,7 +150,7 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
                 templateUrl: './js/templates/confirm.html',
                 controller: 'completeToDoTemplateController',
                 resolve: {
-                    selectLang() {
+                    selectedLanguage() {
                         return $scope.selectedLanguage;
                     },
                     completetodo() {

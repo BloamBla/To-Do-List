@@ -7,7 +7,7 @@ angular.module('ToDo').controller('localStoragePageController',
                     templateUrl: './js/templates/loc-stor-confirm.html',
                     controller: 'saveToLocContr',
                     resolve: {
-                        selectLang() {
+                        selectedLanguage() {
                             return $scope.selectedLanguage;
                         },
                         todosMemoryValue() {
@@ -43,7 +43,7 @@ angular.module('ToDo').controller('localStoragePageController',
                 templateUrl: './js/templates/loc-stor-confirm.html',
                 controller: 'saveToLocContr',
                 resolve: {
-                    selectLang() {
+                    selectedLanguage() {
                         return $scope.selectedLanguage;
                     },
                     todosMemoryValue() {

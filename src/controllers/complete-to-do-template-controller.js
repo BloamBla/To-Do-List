@@ -1,5 +1,5 @@
 angular.module('ToDo').controller('completeToDoTemplateController',
-    function ($scope, $uibModalInstance, completetodo, translationService, selectLang) {
+    function ($scope, $uibModalInstance, completetodo, translationService, selectedLanguage) {
     $scope.completetodo = completetodo;
 
     $scope.ok = function () {
@@ -11,7 +11,7 @@ angular.module('ToDo').controller('completeToDoTemplateController',
     };
 
     $scope.translate = function () {
-        translationService.getTranslation($scope, selectLang);
+        translationService.getTranslation($scope, selectedLanguage);
     };
     $scope.translate();
 });

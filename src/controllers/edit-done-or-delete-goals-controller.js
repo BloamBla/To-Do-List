@@ -1,5 +1,5 @@
 angular.module('ToDo').controller('editDoneOrDeleteGoalsController',
-    function ($scope, $uibModalInstance, todo, translationService, selectLang, MODAL_ANSWERS) {
+    function ($scope, $uibModalInstance, todo, translationService, selectedLanguage, MODAL_ANSWERS) {
 
         $scope.icons = false;
         $scope.edit = false;
@@ -31,7 +31,7 @@ angular.module('ToDo').controller('editDoneOrDeleteGoalsController',
         };
 
         $scope.translate = function () {
-            translationService.getTranslation($scope, selectLang);
+            translationService.getTranslation($scope, selectedLanguage);
         };
         $scope.translate();
     });

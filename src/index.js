@@ -21,13 +21,13 @@ angular.module('ToDo').controller('todoController',
             $scope.translate = function(){
                 translationService.getTranslation($scope, $scope.selectedLanguage);
             };
-            if (sessionStorage.getItem('currentLanguage')) {
-                $scope.selectedLanguage = sessionStorage.getItem('currentLanguage');
+            if (localStorage.getItem('currentLanguage')) {
+                $scope.selectedLanguage = localStorage.getItem('currentLanguage');
             } else {$scope.selectedLanguage = 'en';}
             $scope.translate();
 
             $scope.saveLanguage = function() {
-                sessionStorage.setItem('currentLanguage', $scope.selectedLanguage);
+                localStorage.setItem('currentLanguage', $scope.selectedLanguage);
                 $scope.translate();
             };
         }]);

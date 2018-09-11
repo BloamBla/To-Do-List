@@ -1,8 +1,8 @@
-angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 'ctrlConnect',
-    function ($scope, $uibModal, ctrlConnect){
+angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 'ctrlConnect', 'MODAL_ANSWERS',
+    function ($scope, $uibModal, ctrlConnect, MODAL_ANSWERS){
 
-        let sortFromAToZ = function(arrrr){
-            arrrr.sort(function (a, b) {
+        let sortFromAToZ = function(array){
+            array.sort(function (a, b) {
                 if (a.title > b.title) {
                     return 1;
                 }
@@ -13,8 +13,8 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
             });
         };
 
-        let sortFromZToA = function(arrrr){
-            arrrr.sort(function (a, b) {
+        let sortFromZToA = function(array){
+            array.sort(function (a, b) {
                 if (a.title > b.title) {
                     return -1;
                 }
@@ -36,9 +36,13 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
 
         $scope.onLoad = function () {
             $scope.todos = ctrlConnect.getTodos();
-            $scope.completetodos = ctrlConnect.getComplTodos();
-            let arr = $scope.todos;
-            sortFromAToZ(arr);
+            if ($scope.todos !== null && $scope.todos !== undefined) {
+                $scope.completetodos = ctrlConnect.getComplTodos();
+                sortFromAToZ($scope.todos);
+            } else {
+                $scope.todos = [];
+                $scope.completetodos = ctrlConnect.getComplTodos();
+            }
         };
 
         $scope.onLoad();
@@ -58,7 +62,7 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
             $scope.todos.push(
                 {
                     title: $scope.toDoInput,
-                    states: {done: false, active: false, edit: false},
+                    states: {done: false, active: false},
                 });
             if ($scope.sortAToZ) {
                 $scope.sortFromAToZ();
@@ -85,14 +89,12 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
             sortFromZToA(arr);
         };
 
-        $scope.deleteGoal = function ($event, $index, todo) {
-            $event.preventDefault();
-            $event.stopPropagation();
+        $scope.deleteGoal = function ($index, todo) {
             const modalInstance = $uibModal.open({
                 templateUrl: './js/templates/confirm.html',
                 controller: 'todoTemplateController',
                 resolve: {
-                    myTranslate() {
+                    selectedLanguage() {
                         return $scope.selectedLanguage;
                     },
                     todo() {
@@ -103,7 +105,42 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
 
             modalInstance.result.then(function () {
                 $scope.todos.splice($index, 1);
-            },);
+            }, function () {
+                return false;
+            });
+        };
+
+
+        $scope.workWithGoal = function ($index, todo) {
+            const modalInstance = $uibModal.open({
+                templateUrl: './js/templates/goals-template.html',
+                controller: 'editDoneOrDeleteGoalsController',
+                resolve: {
+                    todo() {
+                        return todo;
+                    },
+                    selectedLanguage() {
+                        return $scope.selectedLanguage;
+                    },
+                },
+            });
+
+            modalInstance.result.then(function (answer) {
+                switch (answer) {
+                    case MODAL_ANSWERS.SAVE:
+                        break;
+                    case MODAL_ANSWERS.SUCCESS:
+                        $scope.doneGoal($index);
+                        break;
+                    case MODAL_ANSWERS.DELETE:
+                        $scope.deleteGoal($index);
+                        break;
+                    default:
+                }
+                $scope.sortFromAToZ($scope.todos);
+            }, function () {
+                return false;
+            });
         };
 
         $scope.deleteComplGoal = function ($event, $index, completetodo) {
@@ -113,7 +150,7 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
                 templateUrl: './js/templates/confirm.html',
                 controller: 'completeToDoTemplateController',
                 resolve: {
-                    myTranslate() {
+                    selectedLanguage() {
                         return $scope.selectedLanguage;
                     },
                     completetodo() {
@@ -124,38 +161,15 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
 
             modalInstance.result.then(function () {
                 $scope.completetodos.splice($index, 1);
-            },);
+            }, function () {
+                return false;
+            });
         };
 
-        $scope.doneGoal = function ($index, todo, $event) {
-            $event.preventDefault();
-            $event.stopPropagation();
+        $scope.doneGoal = function ($index) {
             $scope.completetodos = $scope.completetodos.concat($scope.todos.slice($index, $index + 1));
             $scope.todos.splice($index, 1);
             const arr = $scope.completetodos;
-            arr.sort(function (a, b) {
-                if (a.title > b.title) {
-                    return 1;
-                }
-                if (a.title < b.title) {
-                    return -1;
-                }
-                return 0;
-            });
-            todo.states.active = false;
-            todo.states.done = true;
-        };
-
-        $scope.editGoal = function ($event, todo) {
-            $event.preventDefault();
-            $event.stopPropagation();
-            for (let i = 0; i <= $scope.todos.length - 1; i++) {
-                if (i !== $scope.todos.indexOf(todo)) {
-                    $scope.todos[i].states.edit = false;
-                }
-            }
-            todo.states.edit = !todo.states.edit;
-            const arr = $scope.todos;
             sortFromAToZ(arr);
         };
 
@@ -170,31 +184,6 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
             } else {
                 const arr = $scope.todos;
                 sortFromZToA(arr);
-            }
-        };
-
-        $scope.toggleActive = ($event, todo) => {
-            $event.preventDefault();
-            $event.stopPropagation();
-            for (let i = 0; i <= $scope.todos.length - 1; i++) {
-                if (i !== $scope.todos.indexOf(todo)) {
-                    $scope.todos[i].states.active = false;
-                    $scope.todos[i].states.edit = false;
-                }
-                $scope.todos[i].states.edit = false;
-            }
-            todo.states.active = !todo.states.active;
-        };
-
-        $scope.stopProp = function ($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-        };
-
-        $scope.clearActive = function () {
-            for (let i = 0; i <= $scope.todos.length - 1; i++) {
-                $scope.todos[i].states.active = false;
-                $scope.todos[i].states.edit = false;
             }
         };
     }]);

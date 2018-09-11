@@ -1,9 +1,11 @@
 angular.module('ToDo').controller('saveToLocContr',
-    function ($scope, $uibModalInstance, translationService, myTranslate, todosMemoryValue, MODAL_ANSWERS) {
+    function ($scope, $uibModalInstance, translationService, selectedLanguage, todosMemoryValue, MODAL_ANSWERS) {
 
-        const arr = todosMemoryValue;
         $scope.mes = [];
-        $scope.mes = $scope.mes.concat(arr);
+        $scope.mes = $scope.mes.concat(todosMemoryValue);
+
+        $scope.pieces = [];
+        $scope.pieces = JSON.parse(localStorage.getItem('todos'));
 
         $scope.save = function () {
             $uibModalInstance.close(MODAL_ANSWERS.SAVE);
@@ -18,7 +20,7 @@ angular.module('ToDo').controller('saveToLocContr',
         };
 
         $scope.translate = function () {
-            translationService.getTranslation($scope, myTranslate);
+            translationService.getTranslation($scope, selectedLanguage);
         };
         $scope.translate();
     });

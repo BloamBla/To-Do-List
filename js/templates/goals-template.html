@@ -1,0 +1,31 @@
+<div class="modal-header"><h5>{{translation.WHAT_DO_WITH_GOAL}}</h5></div>
+<div class="modal-body" ng-model="edit">
+    <div ng-class="{'visible' : edit === false, 'hide' : edit === true}" ng-click="togleIcons()" title="нажми на меня! ;-)">
+        {{todo.title}}
+    </div>
+    <div ng-class="{'hide' : edit === false, 'visible' : edit === true}">
+        <textarea ng-model="todo.title" class="text-area-wrap">
+            {{todo.title}}
+        </textarea>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="edit-buttons-wrap" ng-class="{'hide' : icons === false}">
+        <button ng-click="save()" class="btn btn-primary edit-button hide"
+                ng-class="edit === true ? 'inherit' : 'hide'">{{translation.SAVE_CHANGES}}
+        </button>
+        <button ng-click="editIt()" ng-class="edit === false ? 'inherit' : 'hide'"
+                class="btn btn-primary edit-button">{{translation.EDIT_IT}}
+        </button>
+        <button ng-click="success()" class="btn btn-success edit-button">{{translation.DONE_IT}}</button>
+        <button ng-click="delete()" class="btn btn-danger edit-button">{{translation.DELETE_IT}}</button>
+        <button ng-click="close()" class="btn btn-light edit-button">{{translation.CLOSE_IT}}</button>
+    </div>
+    <div class="edit-buttons-wrap" ng-class="{'hide' : icons === true}">
+        <div ng-click="save()" ng-class="edit === true ? 'visible' : 'hide'" class="modal-save modal-icons"></div>
+        <div ng-click="editIt()" ng-class="edit === false ? 'visible' : 'hide'" class="modal-edit modal-icons"></div>
+        <div ng-click="success()" class="modal-success modal-icons"></div>
+        <div ng-click="delete()" class="modal-delete modal-icons"></div>
+        <div ng-click="close()" class="modal-close modal-icons"></div>
+    </div>
+</div>

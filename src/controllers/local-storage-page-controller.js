@@ -1,14 +1,13 @@
 angular.module('ToDo').controller('localStoragePageController',
     function ($scope, ctrlConnect, $uibModal, MODAL_ANSWERS, alertBox) {
-        let res = [];
 
         $scope.saveInLocStor = function () {
-            if (localStorage.getItem('todos') !== null) {
+            if (localStorage.getItem('todos') !== null && localStorage.getItem('todos') !== '[]') {
                 const modalInstance = $uibModal.open({
                     templateUrl: './js/templates/loc-stor-confirm.html',
                     controller: 'saveToLocContr',
                     resolve: {
-                        myTranslate() {
+                        selectedLanguage() {
                             return $scope.selectedLanguage;
                         },
                         todosMemoryValue() {
@@ -30,7 +29,9 @@ angular.module('ToDo').controller('localStoragePageController',
                             break;
                         default:
                     }
-                },);
+                }, function () {
+                    return false;
+                });
             } else {
                 localStorage.setItem('todos', JSON.stringify(ctrlConnect.getTodos()));
                 alertBox.addAlert($scope.translation.LOAD_IN_STOR);
@@ -42,7 +43,7 @@ angular.module('ToDo').controller('localStoragePageController',
                 templateUrl: './js/templates/loc-stor-confirm.html',
                 controller: 'saveToLocContr',
                 resolve: {
-                    myTranslate() {
+                    selectedLanguage() {
                         return $scope.selectedLanguage;
                     },
                     todosMemoryValue() {
@@ -51,6 +52,7 @@ angular.module('ToDo').controller('localStoragePageController',
                 },
             });
             modalInstance.result.then(function (answer) {
+                let res = [];
                 switch (answer) {
                     case MODAL_ANSWERS.SAVE:
                         res = JSON.parse(localStorage.getItem('todos'));
@@ -58,12 +60,16 @@ angular.module('ToDo').controller('localStoragePageController',
                         alertBox.addAlert($scope.translation.LOAD_FROM_STOR);
                         break;
                     case MODAL_ANSWERS.MERGE:
-                        res = ctrlConnect.getTodos().concat(JSON.parse(localStorage.getItem('todos')));
-                        $scope.setInService(res);
-                        alertBox.addAlert($scope.translation.MERGE_FROM_STOR);
-                        break;
+                        if (localStorage.getItem('todos') !== null) {
+                            res = ctrlConnect.getTodos().concat(JSON.parse(localStorage.getItem('todos')));
+                            $scope.setInService(res);
+                            alertBox.addAlert($scope.translation.MERGE_FROM_STOR);
+                            break;
+                        } break;
                     default:
                 }
+            }, function () {
+                return false;
             });
         };
 

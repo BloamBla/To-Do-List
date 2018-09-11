@@ -52,7 +52,7 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
             ctrlConnect.setTodos(arr);
             arr = $scope.completetodos;
             ctrlConnect.setComplTodos(arr);
-            localStorage.setItem('completetodos', JSON.stringify(arr));
+            /*localStorage.setItem('completetodos', JSON.stringify(arr));*/
         };
 
         $scope.addToDo = function (inputForm) {
@@ -101,13 +101,16 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
                     todo() {
                         return todo;
                     },
+                    index() {
+                        return $index;
+                    },
                 },
             });
 
             modalInstance.result.then(function () {
                 $scope.todos.splice($index, 1);
             }, function () {
-                return false;
+                $scope.workWithGoal($index, todo);
             });
         };
 
@@ -134,7 +137,7 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
                         $scope.doneGoal($index);
                         break;
                     case MODAL_ANSWERS.DELETE:
-                        $scope.deleteGoal($index);
+                        $scope.deleteGoal($index, todo);
                         break;
                     default:
                 }

@@ -28,7 +28,7 @@
 
 .todos-wrap {
     margin: 0 auto;
-    padding: 27px 20%;
+    padding: 15px 20%;
 }
 
 .to-do-wrap {
@@ -265,8 +265,21 @@ div.to-do-wrap > div.btn-group > .sort-button-active:active {
     flex: 1;
 }
 
+.route-bar-wrap-loc {
+    display: flex;
+}
+
 .route-bar-wrap-loc > .btn {
     margin: 0 5px;
+    display: flex;
+}
+
+.route-bar-item:first-child, .route-bar-item:last-child {
+    margin-bottom: 20px;
+}
+
+.route-bar-item:first-child {
+    margin-right: 30px;
 }
 
 .route-bar-link {
@@ -277,16 +290,11 @@ div.to-do-wrap > div.btn-group > .sort-button-active:active {
 .page-wrap {
     width: 60%;
     margin: 0 auto;
-    display: flex;
 }
 
 .clear-link, .clear-link:hover {
     color: black;
     text-decoration: none;
-}
-
-.clear-link > .btn {
-    margin-left: 5px;
 }
 
 .goals-div {

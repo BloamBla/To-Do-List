@@ -8,7 +8,7 @@ angular.module('ToDo').controller('todoTemplateController',
         };
 
         $scope.cancel = function () {
-            $uibModalInstance.dismiss();
+            $uibModalInstance.dismiss($scope.index, $scope.todo);
         };
 
         $scope.translate = function () {

@@ -15,8 +15,8 @@ import './controllers/notice-crtl.js';
 import './controllers/edit-done-or-delete-goals-controller.js';
 
 angular.module('ToDo').controller('todoController',
-    ['$scope', 'translationService',
-        function ($scope, translationService) {
+    ['$scope', 'translationService', 'ctrlConnect',
+        function ($scope, translationService, ctrlConnect) {
 
             $scope.translate = function(){
                 translationService.getTranslation($scope, $scope.selectedLanguage);
@@ -30,4 +30,13 @@ angular.module('ToDo').controller('todoController',
                 localStorage.setItem('currentLanguage', $scope.selectedLanguage);
                 $scope.translate();
             };
+
+            $scope.onLoad = function () {
+                const arr = JSON.parse(localStorage.getItem('todos'));
+                if (arr !== null && arr !== undefined) {
+                    ctrlConnect.setTodos(arr);
+                }
+            };
+
+            $scope.onLoad();
         }]);

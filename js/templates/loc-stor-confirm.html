@@ -5,16 +5,30 @@
 </div>
 <div class="modal-body" id="modal-body">
     <div>{{translation.SAVE_SURE}}</div>
-    <div>{{translation.FILES_ARE}}</div>
+    <div class="font-weight-bold">{{translation.FILES_ARE}}</div>
     <div class="goals-div">
+        <span class="text-underline">{{translation.SAVE_ACTIVE_ONLY}}:</span>
         <ul>
-            <li ng-repeat="me in mes track by $index">{{me.title}}</li>
+            <li ng-repeat="me in mes[0] track by $index">
+                {{me.title}}</li>
+        </ul>
+        <span class="text-underline">{{translation.SAVE_DONE_ONLY}}:</span>
+        <ul>
+            <li ng-repeat="me in mes[1] track by $index" class="done-goals">
+                {{me.title}}</li>
         </ul>
     </div>
-    <div>{{translation.FILES_IN_LOC}}</div>
+    <div class="font-weight-bold">{{translation.FILES_IN_LOC}}</div>
     <div class="goals-div">
+        <span class="text-underline">{{translation.SAVE_ACTIVE_ONLY}}:</span>
         <ul>
-            <li ng-repeat="piece in pieces track by $index">{{piece.title}}</li>
+            <li ng-repeat="piece in pieces[0] track by $index">
+                {{piece.title}}</li>
+        </ul>
+        <span class="text-underline">{{translation.SAVE_DONE_ONLY}}:</span>
+        <ul>
+            <li ng-repeat="piece in pieces[1] track by $index" class="done-goals">
+                {{piece.title}}</li>
         </ul>
     </div>
 </div>

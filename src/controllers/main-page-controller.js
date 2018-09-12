@@ -1,7 +1,7 @@
 angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 'ctrlConnect', 'MODAL_ANSWERS',
     function ($scope, $uibModal, ctrlConnect, MODAL_ANSWERS){
 
-        let sortFromAToZ = function(array){
+        const sortFromAToZ = function(array){
             array.sort(function (a, b) {
                 if (a.title > b.title) {
                     return 1;
@@ -13,7 +13,7 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
             });
         };
 
-        let sortFromZToA = function(array){
+        const sortFromZToA = function(array){
             array.sort(function (a, b) {
                 if (a.title > b.title) {
                     return -1;
@@ -51,6 +51,7 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
             let arr = $scope.todos;
             ctrlConnect.setTodos(arr);
             arr = $scope.completetodos;
+            if (!arr) {arr = [];}
             ctrlConnect.setComplTodos(arr);
         };
 
@@ -100,13 +101,16 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
                     todo() {
                         return todo;
                     },
+                    index() {
+                        return $index;
+                    },
                 },
             });
 
             modalInstance.result.then(function () {
                 $scope.todos.splice($index, 1);
             }, function () {
-                return false;
+                $scope.workWithGoal($index, todo);
             });
         };
 
@@ -133,7 +137,7 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
                         $scope.doneGoal($index);
                         break;
                     case MODAL_ANSWERS.DELETE:
-                        $scope.deleteGoal($index);
+                        $scope.deleteGoal($index, todo);
                         break;
                     default:
                 }

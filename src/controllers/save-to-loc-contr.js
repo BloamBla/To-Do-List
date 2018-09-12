@@ -1,11 +1,13 @@
 angular.module('ToDo').controller('saveToLocContr',
-    function ($scope, $uibModalInstance, translationService, selectedLanguage, todosMemoryValue, MODAL_ANSWERS) {
+    function ($scope, $uibModalInstance, translationService, selectedLanguage, memoryValue, MODAL_ANSWERS, obj) {
 
-        $scope.mes = [];
-        $scope.mes = $scope.mes.concat(todosMemoryValue);
+        let [todos, completetodos] = [memoryValue[0], memoryValue[1]];
+        $scope.mes = [todos, completetodos];
 
         $scope.pieces = [];
-        $scope.pieces = JSON.parse(localStorage.getItem('todos'));
+        [todos, completetodos] = [JSON.parse(localStorage.getItem('allTodos'))[0], JSON.parse(localStorage.getItem('allTodos'))[1]];
+        $scope.pieces[0] = todos;
+        $scope.pieces[1] = completetodos;
 
         $scope.save = function () {
             $uibModalInstance.close(MODAL_ANSWERS.SAVE);

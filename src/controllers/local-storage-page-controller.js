@@ -1,8 +1,15 @@
 angular.module('ToDo').controller('localStoragePageController',
     function ($scope, ctrlConnect, $uibModal, MODAL_ANSWERS, alertBox) {
 
+        $scope.userChoise = 'allTodos';
+
+        $scope.dropTodos = false;
+        $scope.dropComplTodos = false;
+
         $scope.saveInLocStor = function () {
-            if (localStorage.getItem('todos') !== null && localStorage.getItem('todos') !== '[]') {
+            let [todos, completetodos] = [ctrlConnect.getTodos(), ctrlConnect.getComplTodos()];
+            let arr = [todos, completetodos];
+            if (localStorage.getItem('allTodos') !== null && localStorage.getItem('allTodos') !== '[[],[]]') {
                 const modalInstance = $uibModal.open({
                     templateUrl: './js/templates/loc-stor-confirm.html',
                     controller: 'saveToLocContr',
@@ -10,35 +17,60 @@ angular.module('ToDo').controller('localStoragePageController',
                         selectedLanguage() {
                             return $scope.selectedLanguage;
                         },
-                        todosMemoryValue() {
-                            return ctrlConnect.getTodos();
+                        memoryValue() {
+                            return arr;
+                        },
+                        obj() {
+                            return $scope.userChoise;
                         },
                     },
                 });
                 modalInstance.result.then(function (answer) {
                     switch (answer) {
                         case MODAL_ANSWERS.SAVE:
-                            localStorage.setItem('todos', JSON.stringify(ctrlConnect.getTodos()));
+                            localStorage.setItem('allTodos', JSON.stringify(arr));
                             alertBox.addAlert($scope.translation.LOAD_IN_STOR);
                             break;
                         case MODAL_ANSWERS.MERGE:
-                            let arr = ctrlConnect.getTodos();
-                            arr = arr.concat(JSON.parse(localStorage.getItem('todos')));
-                            localStorage.setItem('todos', JSON.stringify(arr));
-                            alertBox.addAlert($scope.translation.MERGE_IN_STOR);
+                            switch ($scope.userChoise) {
+                                case 'allTodos':
+                                    todos = todos.concat(JSON.parse(localStorage.getItem($scope.userChoise))[0]);
+                                    completetodos = completetodos.concat(JSON.parse(localStorage.getItem($scope.userChoise))[1]);
+                                    arr = [todos, completetodos];
+                                    localStorage.setItem($scope.userChoise, JSON.stringify(arr));
+                                    alertBox.addAlert($scope.translation.MERGE_IN_STOR);
+                                    break;
+                                case 'todos':
+                                    todos = todos.concat(ctrlConnect.getTodos());
+                                    arr = [todos, completetodos];
+                                    localStorage.setItem('allTodos', JSON.stringify(arr));
+                                    break;
+                                case 'completeTodos':
+                                    completetodos = completetodos.concat(ctrlConnect.getTodos());
+                                    arr = [todos, completetodos];
+                                    localStorage.setItem('allTodos', JSON.stringify(arr));
+                                    break;
+                                default: break;
+                            }
                             break;
-                        default:
+                        default: break;
                     }
                 }, function () {
                     return false;
                 });
             } else {
-                localStorage.setItem('todos', JSON.stringify(ctrlConnect.getTodos()));
+                localStorage.setItem('allTodos', JSON.stringify(arr));
                 alertBox.addAlert($scope.translation.LOAD_IN_STOR);
             }
         };
 
         $scope.loadFromLocalStor = function () {
+            let [todos, completetodos] = [ctrlConnect.getTodos(), ctrlConnect.getComplTodos()];
+            let arr = [todos, completetodos];
+            if (localStorage.getItem('allTodos') === null) {
+                arr = [[],[]];
+                localStorage.setItem('allTodos', JSON.stringify(arr));
+            }
             const modalInstance = $uibModal.open({
                 templateUrl: './js/templates/loc-stor-confirm.html',
                 controller: 'saveToLocContr',
@@ -46,8 +78,11 @@ angular.module('ToDo').controller('localStoragePageController',
                     selectedLanguage() {
                         return $scope.selectedLanguage;
                     },
-                    todosMemoryValue() {
-                        return ctrlConnect.getTodos();
+                    memoryValue() {
+                        return arr;
+                    },
+                    obj() {
+                        return $scope.userChoise;
                     },
                 },
             });
@@ -55,17 +90,17 @@ angular.module('ToDo').controller('localStoragePageController',
                 let res = [];
                 switch (answer) {
                     case MODAL_ANSWERS.SAVE:
-                        res = JSON.parse(localStorage.getItem('todos'));
-                        $scope.setInService(res);
+                        res = JSON.parse(localStorage.getItem('allTodos'));
+                        $scope.setInService($scope.userChoise, res);
                         alertBox.addAlert($scope.translation.LOAD_FROM_STOR);
                         break;
                     case MODAL_ANSWERS.MERGE:
-                        if (localStorage.getItem('todos') !== null) {
-                            res = ctrlConnect.getTodos().concat(JSON.parse(localStorage.getItem('todos')));
-                            $scope.setInService(res);
+                        if (localStorage.getItem('allTodos') !== null) {
+                            $scope.mergeInService($scope.userChoise, [todos, completetodos]);
                             alertBox.addAlert($scope.translation.MERGE_FROM_STOR);
                             break;
-                        } break;
+                        }
+                        break;
                     default:
                 }
             }, function () {
@@ -73,7 +108,43 @@ angular.module('ToDo').controller('localStoragePageController',
             });
         };
 
-        $scope.setInService = function (item) {
-            ctrlConnect.setTodos(item);
+        $scope.setInService = function (obj, item) {
+            switch (obj) {
+                case 'allTodos':
+                    ctrlConnect.setTodos(item[0]);
+                    ctrlConnect.setComplTodos(item[1]);
+                    break;
+                case 'todos' :
+                    ctrlConnect.setTodos(item[0]);
+                    break;
+                case 'completeTodos' :
+                    ctrlConnect.setComplTodos(item[1]);
+                    break;
+                default :
+                    break;
+            }
+        };
+
+
+        $scope.mergeInService = function (obj, item) {
+            let [todos, completetodos] = [ctrlConnect.getTodos(), ctrlConnect.getComplTodos()];
+            switch (obj) {
+                case 'allTodos':
+                    todos = todos.concat(item[0]);
+                    completetodos = completetodos.concat(item[1]);
+                    ctrlConnect.setTodos(todos);
+                    ctrlConnect.setComplTodos(completetodos);
+                    break;
+                case 'todos':
+                    todos = todos.concat(item[0]);
+                    ctrlConnect.setTodos(todos);
+                    break;
+                case 'completeTodos':
+                    completetodos = completetodos.concat(item[1]);
+                    ctrlConnect.setComplTodos(completetodos);
+                    break;
+                default :
+                    break;
+            }
         };
     });

@@ -15,8 +15,8 @@ import './controllers/notice-crtl.js';
 import './controllers/edit-done-or-delete-goals-controller.js';
 
 angular.module('ToDo').controller('todoController',
-    ['$scope', 'translationService',
-        function ($scope, translationService) {
+    ['$scope', 'translationService', 'ctrlConnect',
+        function ($scope, translationService, ctrlConnect) {
 
             $scope.translate = function(){
                 translationService.getTranslation($scope, $scope.selectedLanguage);
@@ -30,4 +30,39 @@ angular.module('ToDo').controller('todoController',
                 localStorage.setItem('currentLanguage', $scope.selectedLanguage);
                 $scope.translate();
             };
+
+            $scope.onLoad = function () {
+                let arr = [];
+                if (localStorage.getItem('todos') !== null) {
+                    if (JSON.parse(localStorage.getItem('allTodos')) !== null){
+                        arr = JSON.parse(localStorage.getItem('allTodos'));
+                        arr[0] = arr[0].concat(JSON.parse(localStorage.getItem('todos')));
+                        localStorage.setItem('allTodos', JSON.stringify(arr));
+                        localStorage.setItem('todos', JSON.stringify([]));
+                    } else {
+                        arr = [[],[]];
+                        arr[0] = arr[0].concat(JSON.parse(localStorage.getItem('todos')));
+                        localStorage.setItem('allTodos', JSON.stringify(arr));
+                    }
+                }
+                if (localStorage.getItem('completetodos') !== null) {
+                    if (JSON.parse(localStorage.getItem('allTodos')) !== null){
+                        arr = JSON.parse(localStorage.getItem('allTodos'));
+                        arr[1] = arr[1].concat(JSON.parse(localStorage.getItem('completetodos')));
+                        localStorage.setItem('allTodos', JSON.stringify(arr));
+                        localStorage.setItem('completetodos', JSON.stringify([]));
+                    } else {
+                        arr = [[],[]];
+                        arr[1] = arr[1].concat(JSON.parse(localStorage.getItem('completetodos')));
+                        localStorage.setItem('allTodos', JSON.stringify(arr));
+                    }
+                }
+                arr = JSON.parse(localStorage.getItem('allTodos'));
+                if (arr !== null && arr !== undefined) {
+                    ctrlConnect.setTodos(arr[0]);
+                    ctrlConnect.setComplTodos(arr[1]);
+                }
+            };
+
+            $scope.onLoad();
         }]);

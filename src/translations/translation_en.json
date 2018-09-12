@@ -29,5 +29,13 @@
   "WHAT_DO_WITH_GOAL" : "What you want to do with this goal?",
   "EDIT_IT" : "Edit",
   "CLOSE_IT_PLS" : "Close",
-  "FILES_IN_LOC" : "Goals in local storage is:"
+  "FILES_IN_LOC" : "Goals in local storage is:",
+  "SAVE_IT_ALL" : "All",
+  "SAVE_ACTIVE_ONLY" : "Active",
+  "SAVE_DONE_ONLY" : "Done",
+  "SAVE_IN_LOCAL" : "Save goals in local store:",
+  "LOAD_FROM_LOCAL" : "Load goals from local store",
+  "SAVE_IT" : "Save",
+  "LOAD_IT" : "Load",
+  "SELECT_GOALS" : "Select goals:"
 }

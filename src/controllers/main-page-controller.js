@@ -53,7 +53,6 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
             arr = $scope.completetodos;
             if (!arr) {arr = [];}
             ctrlConnect.setComplTodos(arr);
-            /*localStorage.setItem('completetodos', JSON.stringify(arr));*/
         };
 
         $scope.addToDo = function (inputForm) {

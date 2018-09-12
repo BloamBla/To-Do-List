@@ -7,7 +7,7 @@ angular.module('ToDo').controller('localStoragePageController',
         $scope.dropComplTodos = false;
 
         $scope.saveInLocStor = function () {
-            if (localStorage.getItem($scope.userChoise) !== null && localStorage.getItem($scope.userChoise) !== '[[],[]]') {
+            if (localStorage.getItem('allTodos') !== null && localStorage.getItem('allTodos') !== '[[],[]]') {
                 const modalInstance = $uibModal.open({
                     templateUrl: './js/templates/loc-stor-confirm.html',
                     controller: 'saveToLocContr',
@@ -75,6 +75,10 @@ angular.module('ToDo').controller('localStoragePageController',
         };
 
         $scope.loadFromLocalStor = function () {
+            if (localStorage.getItem('allTodos') === null) {
+                const arr = [[],[]];
+                localStorage.setItem('allTodos', JSON.stringify(arr));
+            }
             const modalInstance = $uibModal.open({
                 templateUrl: './js/templates/loc-stor-confirm.html',
                 controller: 'saveToLocContr',

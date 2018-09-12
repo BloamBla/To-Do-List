@@ -96,9 +96,7 @@ angular.module('ToDo').controller('localStoragePageController',
                         break;
                     case MODAL_ANSWERS.MERGE:
                         if (localStorage.getItem('allTodos') !== null) {
-                            res[0] = todos;
-                            res[1] = completetodos;
-                            $scope.mergeInService($scope.userChoise, res);
+                            $scope.mergeInService($scope.userChoise, [todos, completetodos]);
                             alertBox.addAlert($scope.translation.MERGE_FROM_STOR);
                             break;
                         }

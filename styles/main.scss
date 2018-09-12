@@ -94,13 +94,6 @@
     position: relative;
 }
 
-@media (min-width: 576px) {
-    .modal-dialog {
-        margin-top: 15%;
-    }
-}
-
-
 .edit-input {
     padding: 0 10px;
     width: 100%;
@@ -247,6 +240,18 @@ div.to-do-wrap > div.btn-group > .sort-button-active:active {
     background: $click;
 }
 
+.caret {
+display: inline-block;
+width: 0;
+height: 0;
+margin-left: 2px;
+vertical-align: middle;
+border-top: 4px dashed;
+border-top: 4px solid\9;
+border-right: 4px solid transparent;
+border-left: 4px solid transparent;
+}
+
 .language-select-loc {
     text-align: right;
     padding: 20px 0 10px 10px;
@@ -265,13 +270,59 @@ div.to-do-wrap > div.btn-group > .sort-button-active:active {
     flex: 1;
 }
 
-.route-bar-wrap-loc {
-    display: flex;
-}
-
 .route-bar-wrap-loc > .btn {
     margin: 0 5px;
     display: flex;
+}
+
+.route-bar-item {
+    position: relative;
+    display: block;
+}
+
+.buttons-and-text-wrap:first-child {
+    margin-right: 20px;
+}
+
+.buttons-and-text-wrap:last-child {
+    margin: 24px 0 0;
+}
+
+div.page-wrap > div.buttons-and-text-wrap > div.route-bar-item > button.toggle-button {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.save-dropdown-menu {
+    background: white;
+    padding: 0;
+    z-index: 100;
+    width: max-content;
+    margin: 20px;
+}
+
+.done-goals {
+    text-decoration: line-through;
+}
+
+.text-underline {
+    text-decoration: underline;
+}
+
+li.text-normal {
+    text-decoration: none;
+}
+
+.save-dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.save-dropdown-item:hover {
+    background: #ffff00;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
 .route-bar-item:first-child, .route-bar-item:last-child {
@@ -290,7 +341,7 @@ div.to-do-wrap > div.btn-group > .sort-button-active:active {
 .page-wrap {
     width: 60%;
     margin: 0 auto;
-}
+    padding: 10px}
 
 .clear-link, .clear-link:hover {
     color: black;

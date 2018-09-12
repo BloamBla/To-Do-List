@@ -1,7 +1,7 @@
 angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 'ctrlConnect', 'MODAL_ANSWERS',
     function ($scope, $uibModal, ctrlConnect, MODAL_ANSWERS){
 
-        let sortFromAToZ = function(array){
+        const sortFromAToZ = function(array){
             array.sort(function (a, b) {
                 if (a.title > b.title) {
                     return 1;
@@ -13,7 +13,7 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
             });
         };
 
-        let sortFromZToA = function(array){
+        const sortFromZToA = function(array){
             array.sort(function (a, b) {
                 if (a.title > b.title) {
                     return -1;
@@ -51,6 +51,7 @@ angular.module('ToDo').controller('mainPageController', ['$scope', '$uibModal', 
             let arr = $scope.todos;
             ctrlConnect.setTodos(arr);
             arr = $scope.completetodos;
+            if (!arr) {arr = [];}
             ctrlConnect.setComplTodos(arr);
             /*localStorage.setItem('completetodos', JSON.stringify(arr));*/
         };

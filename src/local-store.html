@@ -1,25 +1,20 @@
 <div class="page-wrap">
-    <div class="route-bar-wrap-loc">
-        <div class="route-bar-item">
-        <div>Активные задачи:</div>
-        <button class="btn" ng-click="saveTodosInLocStor()">
-            {{translation.SAVE_STOR}}
-        </button>
-        <button class="btn" ng-click="loadTodosFromLocalStor()">
-            {{translation.LOAD_STOR}}
-        </button>
-        </div>
-        <div class="route-bar-item">
-            <div>Выполненные задачи:</div>
-            <button class="btn" ng-click="saveCompleteTodosInLocStor()">
-                {{translation.SAVE_STOR}}
+    <label>{{translation.SELECT_GOALS}}
+        <select ng-model="userChoise">
+            <option value="allTodos">{{translation.SAVE_IT_ALL}}</option>
+            <option value="todos">{{translation.SAVE_ACTIVE_ONLY}}</option>
+            <option value="completeTodos">{{translation.SAVE_DONE_ONLY}}</option>
+        </select>
+    </label>
+
+
+    <div class="buttons-and-text-wrap">
+        <button class="btn " ng-click="saveInLocStor()">{{translation.SAVE_IT}}</button>
+        <button class="btn " ng-click="loadFromLocalStor()">{{translation.LOAD_IT}}</button>
+        <a href="#!main" class="clear-link">
+            <button class="btn null-margin">
+                {{translation.RETURN_TO}}
             </button>
-            <button class="btn" ng-click="loadCompleteTodosFromLocalStor()">
-                {{translation.LOAD_STOR}}
-            </button>
-        </div>
+        </a>
     </div>
-    <a href="#!main" class="clear-link"><button class="btn null-margin">
-        {{translation.RETURN_TO}}
-    </button></a>
 </div>

@@ -7,6 +7,8 @@ angular.module('ToDo').controller('localStoragePageController',
         $scope.dropComplTodos = false;
 
         $scope.saveInLocStor = function () {
+            let [todos, completetodos] = [ctrlConnect.getTodos(), ctrlConnect.getComplTodos()];
+            let arr = [todos, completetodos];
             if (localStorage.getItem('allTodos') !== null && localStorage.getItem('allTodos') !== '[[],[]]') {
                 const modalInstance = $uibModal.open({
                     templateUrl: './js/templates/loc-stor-confirm.html',
@@ -16,9 +18,6 @@ angular.module('ToDo').controller('localStoragePageController',
                             return $scope.selectedLanguage;
                         },
                         memoryValue() {
-                            const arr = [];
-                            arr[0] = ctrlConnect.getTodos();
-                            arr[1] = ctrlConnect.getComplTodos();
                             return arr;
                         },
                         obj() {
@@ -27,34 +26,28 @@ angular.module('ToDo').controller('localStoragePageController',
                     },
                 });
                 modalInstance.result.then(function (answer) {
-                    let arr = [];
                     switch (answer) {
                         case MODAL_ANSWERS.SAVE:
-                            arr = [];
-                            arr[0] = ctrlConnect.getTodos();
-                            arr[1] = ctrlConnect.getComplTodos();
                             localStorage.setItem('allTodos', JSON.stringify(arr));
                             alertBox.addAlert($scope.translation.LOAD_IN_STOR);
                             break;
                         case MODAL_ANSWERS.MERGE:
-                            arr = [];
                             switch ($scope.userChoise) {
                                 case 'allTodos':
-                                    arr[0] = ctrlConnect.getTodos();
-                                    arr[1] = ctrlConnect.getComplTodos();
-                                    arr[0] = arr[0].concat(JSON.parse(localStorage.getItem($scope.userChoise))[0]);
-                                    arr[1] = arr[1].concat(JSON.parse(localStorage.getItem($scope.userChoise))[1]);
+                                    todos = todos.concat(JSON.parse(localStorage.getItem($scope.userChoise))[0]);
+                                    completetodos = completetodos.concat(JSON.parse(localStorage.getItem($scope.userChoise))[1]);
+                                    arr = [todos, completetodos];
                                     localStorage.setItem($scope.userChoise, JSON.stringify(arr));
                                     alertBox.addAlert($scope.translation.MERGE_IN_STOR);
                                     break;
                                 case 'todos':
-                                    arr = JSON.parse(localStorage.getItem('allTodos'));
-                                    arr[0] = arr[0].concat(ctrlConnect.getTodos());
+                                    todos = todos.concat(ctrlConnect.getTodos());
+                                    arr = [todos, completetodos];
                                     localStorage.setItem('allTodos', JSON.stringify(arr));
                                     break;
                                 case 'completeTodos':
-                                    arr = JSON.parse(localStorage.getItem('allTodos'));
-                                    arr[1] = arr[1].concat(ctrlConnect.getTodos());
+                                    completetodos = completetodos.concat(ctrlConnect.getTodos());
+                                    arr = [todos, completetodos];
                                     localStorage.setItem('allTodos', JSON.stringify(arr));
                                     break;
                                 default: break;
@@ -66,17 +59,16 @@ angular.module('ToDo').controller('localStoragePageController',
                     return false;
                 });
             } else {
-                const arr = [];
-                arr[0] = ctrlConnect.getTodos();
-                arr[1] = ctrlConnect.getComplTodos();
                 localStorage.setItem('allTodos', JSON.stringify(arr));
                 alertBox.addAlert($scope.translation.LOAD_IN_STOR);
             }
         };
 
         $scope.loadFromLocalStor = function () {
+            let [todos, completetodos] = [ctrlConnect.getTodos(), ctrlConnect.getComplTodos()];
+            let arr = [todos, completetodos];
             if (localStorage.getItem('allTodos') === null) {
-                const arr = [[],[]];
+                arr = [[],[]];
                 localStorage.setItem('allTodos', JSON.stringify(arr));
             }
             const modalInstance = $uibModal.open({
@@ -87,9 +79,6 @@ angular.module('ToDo').controller('localStoragePageController',
                         return $scope.selectedLanguage;
                     },
                     memoryValue() {
-                        const arr = [];
-                        arr[0] = ctrlConnect.getTodos();
-                        arr[1] = ctrlConnect.getComplTodos();
                         return arr;
                     },
                     obj() {
@@ -107,8 +96,8 @@ angular.module('ToDo').controller('localStoragePageController',
                         break;
                     case MODAL_ANSWERS.MERGE:
                         if (localStorage.getItem('allTodos') !== null) {
-                            res[0] = JSON.parse(localStorage.getItem('allTodos'))[0];
-                            res[1] = JSON.parse(localStorage.getItem('allTodos'))[1];
+                            res[0] = todos;
+                            res[1] = completetodos;
                             $scope.mergeInService($scope.userChoise, res);
                             alertBox.addAlert($scope.translation.MERGE_FROM_STOR);
                             break;
@@ -140,23 +129,21 @@ angular.module('ToDo').controller('localStoragePageController',
 
 
         $scope.mergeInService = function (obj, item) {
-            const arr =[];
-            arr[0] = ctrlConnect.getTodos();
-            arr[1] = ctrlConnect.getComplTodos();
+            let [todos, completetodos] = [ctrlConnect.getTodos(), ctrlConnect.getComplTodos()];
             switch (obj) {
                 case 'allTodos':
-                    arr[0] = arr[0].concat(item[0]);
-                    arr[1] = arr[1].concat(item[1]);
-                    ctrlConnect.setTodos(arr[0]);
-                    ctrlConnect.setComplTodos(arr[1]);
+                    todos = todos.concat(item[0]);
+                    completetodos = completetodos.concat(item[1]);
+                    ctrlConnect.setTodos(todos);
+                    ctrlConnect.setComplTodos(completetodos);
                     break;
                 case 'todos':
-                    arr[0] = arr[0].concat(item[0]);
-                    ctrlConnect.setTodos(arr[0]);
+                    todos = todos.concat(item[0]);
+                    ctrlConnect.setTodos(todos);
                     break;
                 case 'completeTodos':
-                    arr[1] = arr[0].concat(item[1]);
-                    ctrlConnect.setComplTodos(arr[1]);
+                    completetodos = completetodos.concat(item[1]);
+                    ctrlConnect.setComplTodos(completetodos);
                     break;
                 default :
                     break;
